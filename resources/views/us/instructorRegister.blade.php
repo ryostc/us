@@ -20,7 +20,7 @@
     <div class="form-row">
         <div class="form-group col-md-6">
             <label for="firstname_ruby_label" class="col-sm-3">性(フリガナ)</label>
-            <input type="text" id="firstname_ruby_label" name="firstnam_ruby" autocomplete="off"
+            <input type="text" id="firstname_ruby_label" name="firstname_ruby" autocomplete="off"
                 value="{{ old('firstname_ruby') }}">
         </div>
 

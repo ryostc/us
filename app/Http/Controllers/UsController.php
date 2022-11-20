@@ -17,7 +17,11 @@ class UsController extends Controller
     public function instructorRegister(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'firstname' => 'required|max:3',
+            'firstname' => 'required|max:50',
+            'lastname' => 'required|max:50',
+            'firstname_ruby' => 'required|max:50',
+            'lastname_ruby' => 'required|max:50',
+            'enrollment_date' => 'required|date',
         ]);
         if ($validator->fails()) {
             return redirect('/instructors/register')
