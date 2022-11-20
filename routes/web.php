@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Instructor;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,4 +17,38 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+/**
+ * テスト用GET
+ */
+Route::get('/ustest', 'App\Http\Controllers\UsController@index');
+
+/**
+ * テスト用POST
+ */
+Route::post('/ustest', 'App\Http\Controllers\UsController@post');
+
+/**
+ * インストラクターの一覧表示(instructors.blade.php)
+ */
+Route::get('/instructors', function () {
+    return view('welcome');
+});
+
+/**
+ * インストラクターの新規登録(get)
+ */
+Route::get('/instructors/register', 'App\Http\Controllers\UsController@index');
+
+/**
+ * インストラクターの新規追加(post)
+ */
+Route::post('/instructors/register', 'App\Http\Controllers\UsController@instructorRegister');
+
+/**
+ * インストラクターの削除
+ */
+Route::delete('/instructor/{instructor}', function (Instructor $instructor) {
+    //
 });
