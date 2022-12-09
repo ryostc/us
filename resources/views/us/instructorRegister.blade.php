@@ -37,7 +37,7 @@
     </div>
     <div class="col-sm-offset-3 col-sm-6">
         <button type="submit" class="btn btn-primary">
-            Save
+            登録
         </button>
     </div>
 </form>

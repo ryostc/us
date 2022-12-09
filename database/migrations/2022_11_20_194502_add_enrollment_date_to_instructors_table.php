@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('instructors', function (Blueprint $table) {
-            $table->datetime('enrollment_date');
+            $table->date('enrollment_date');
         });
     }
 

@@ -32,9 +32,7 @@ Route::post('/ustest', 'App\Http\Controllers\UsController@post');
 /**
  * インストラクターの一覧表示(instructors.blade.php)
  */
-Route::get('/instructors', function () {
-    return view('welcome');
-});
+Route::get('/instructors/show', 'App\Http\Controllers\UsController@instructorShow');
 
 /**
  * インストラクターの新規登録(get)
@@ -49,6 +47,4 @@ Route::post('/instructors/register', 'App\Http\Controllers\UsController@instruct
 /**
  * インストラクターの削除
  */
-Route::delete('/instructor/{instructor}', function (Instructor $instructor) {
-    //
-});
+Route::delete('/instructor/{instructor}', 'App\Http\Controllers\UsController@instructorDestroy');
