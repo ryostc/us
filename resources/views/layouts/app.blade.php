@@ -15,17 +15,14 @@
         <h1>@yield('title')</h1>
         <div class="gnav">
             <ul class="nav_group">
-                <li class="nav_menu"><a href="#">テスト1</a></li>
-                <li class="nav_menu"><a href="#">テスト2</a></li>
-                <li class="nav_menu"><a href="#">テスト3</a></li>
+                <li class="nav_menu"><a href="#">生徒管理</a></li>
+                <li class="nav_menu"><a href="#">スケジュール管理</a></li>
+                <li class="nav_menu"><a href="http://localhost/instructors/show">インストラクター一覧</a></li>
             </ul>
         </div>
     </header>
     <div class="content">
         @yield('content')
-    </div>
-    <div class="footer">
-        @yield('footer')
     </div>
 
     {{-- bootstrap用 --}}

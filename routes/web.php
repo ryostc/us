@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Instructor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -15,36 +14,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// インストラクターの新規登録画面
+Route::get('/instructors/register', 'App\Http\Controllers\UsController@instructorRegister');
 
-/**
- * テスト用GET
- */
-Route::get('/ustest', 'App\Http\Controllers\UsController@index');
+// インストラクターの新規登録処理
+Route::post('/instructors/register', 'App\Http\Controllers\UsController@instructorCreate');
 
-/**
- * テスト用POST
- */
-Route::post('/ustest', 'App\Http\Controllers\UsController@post');
-
-/**
- * インストラクターの一覧表示(instructors.blade.php)
- */
+// インストラクターの一覧表示
 Route::get('/instructors/show', 'App\Http\Controllers\UsController@instructorShow');
 
-/**
- * インストラクターの新規登録(get)
- */
-Route::get('/instructors/register', 'App\Http\Controllers\UsController@index');
+// インストラクターの更新画面
+Route::get('/instructors/edit/{instructor}', 'App\Http\Controllers\UsController@instructorEdit');
 
-/**
- * インストラクターの新規追加(post)
- */
-Route::post('/instructors/register', 'App\Http\Controllers\UsController@instructorRegister');
+// インストラクターの更新処理
+Route::post('/instructors/update', 'App\Http\Controllers\UsController@instructorUpdate');
 
-/**
- * インストラクターの削除
- */
+// インストラクターの削除
 Route::delete('/instructor/{instructor}', 'App\Http\Controllers\UsController@instructorDestroy');

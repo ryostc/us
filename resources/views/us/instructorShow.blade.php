@@ -1,8 +1,9 @@
 @extends('layouts.app')
 
-@section('title', 'インストラクター一覧表示')
+@section('title', 'インストラクター一覧')
 
 @section('content')
+<a href="http://localhost/instructors/register">新規登録</a>
 @if (count($instructors) > 0)
 <table>
     <!-- テーブルヘッダ -->
@@ -28,20 +29,19 @@
                     $s3 = substr($instructor->enrollment_date, 8, 2);
                     echo "<div> $s1 年 $s2 月 $s3 日 </div>";
                 ?>
-                {{-- <div>{{ $instructor->enrollment_date }}</div> --}}
             </td>
 
-            <!-- 本: 更新ボタン -->
-            {{-- <td>
-                <form action="{{ url('booksedit/'.$book->id) }}" method="POST">
+            <!-- インストラクター: 更新ボタン -->
+            <td>
+                <form action="{{ url('instructors/edit/'.$instructor->id) }}" method="GET">
                     @csrf
                     <button type="submit" class="btn btn-primary">
                         更新
                     </button>
                 </form>
-            </td> --}}
+            </td>
 
-            <!-- 本: 削除ボタン -->
+            <!-- インストラクター: 削除ボタン -->
             <td>
                 <form action="{{ url('instructor/'.$instructor->id) }}" method="POST">
                     @csrf
@@ -58,8 +58,4 @@
     </tbody>
 </table>
 @endif
-@endsection
-
-@section('footer')
-copyright 2020
 @endsection
