@@ -23,6 +23,9 @@ Route::post('/instructors/register', 'App\Http\Controllers\UsController@instruct
 // インストラクターの一覧表示
 Route::get('/instructors/show', 'App\Http\Controllers\UsController@instructorShow');
 
+// インストラクターの詳細表示
+Route::get('/instructors/detail/{instructor}', 'App\Http\Controllers\UsController@instructorDetailShow');
+
 // インストラクターの更新画面
 Route::get('/instructors/edit/{instructor}', 'App\Http\Controllers\UsController@instructorEdit');
 

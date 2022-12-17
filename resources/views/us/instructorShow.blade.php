@@ -18,7 +18,9 @@
         <tr>
             <!-- インストラクターの名前 -->
             <td>
-                <div>{{ $instructor->firstname }}{{ $instructor->lastname }}</div>
+                <a class="btn btn-link" href="{{ url('/instructors/detail/' .$instructor->id) }}">
+                    {{$instructor->firstname }}{{ $instructor->lastname }}
+                </a>
             </td>
 
             <!-- インストラクターの入校日 -->
@@ -30,29 +32,6 @@
                     echo "<div> $s1 年 $s2 月 $s3 日 </div>";
                 ?>
             </td>
-
-            <!-- インストラクター: 更新ボタン -->
-            <td>
-                <form action="{{ url('instructors/edit/'.$instructor->id) }}" method="GET">
-                    @csrf
-                    <button type="submit" class="btn btn-primary">
-                        更新
-                    </button>
-                </form>
-            </td>
-
-            <!-- インストラクター: 削除ボタン -->
-            <td>
-                <form action="{{ url('instructor/'.$instructor->id) }}" method="POST">
-                    @csrf
-                    @method('DELETE')
-
-                    <button type="submit" class="btn btn-danger">
-                        削除
-                    </button>
-                </form>
-            </td>
-
         </tr>
         @endforeach
     </tbody>

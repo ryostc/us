@@ -82,9 +82,14 @@ class UsController extends Controller
     /**
      * インストラクターの編集画面表示
      *
-     * @param Request $request
+     * @param Instructor $instructor 編集したいインストラクターの個人情報
      * @return void
      */
+    public function instructorDetailShow(Instructor $instructor)
+    {
+        return view('us.instructorDetailShow', ['instructor' => $instructor]);
+    }
+
     /**
      * インストラクターの編集画面表示
      *
