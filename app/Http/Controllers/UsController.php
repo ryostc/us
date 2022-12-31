@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Instructor;
+use App\Models\Student;
 use Illuminate\Support\Facades\Validator;
 
 class UsController extends Controller
@@ -147,5 +148,92 @@ class UsController extends Controller
     {
         $instructor->delete();
         return redirect('/instructors/show');
+    }
+
+    /**
+     * 生徒の登録画面
+     */
+    public function studentRegister()
+    {
+        $instructors = Instructor::orderBy('created_at', 'asc')->get();
+        return view('us.studentRegister', [
+            'instructors' => $instructors,
+        ]);
+    }
+
+    /**
+     * 生徒の新規登録処理
+     *
+     * @param Request $request 生徒の入力された個人情報
+     */
+    public function studentCreate(Request $request)
+    {
+        // インストラクターのバリデーション処理
+        $validator = Validator::make($request->all(), [
+            'firstname' => 'required|max:50',
+            'lastname' => 'required|max:50',
+            'firstname_ruby' => 'required|max:50',
+            'lastname_ruby' => 'required|max:50',
+            'sex' => 'required',
+            'birthdate' => 'required|max:50',
+            'guardian_firstname' => 'max:50',
+            'guardian_lastname' => 'max:50',
+            'guardian_firstname_ruby' => 'max:50',
+            'guardian_lastname_ruby' => 'max:50',
+            'relationship' => 'max:30',
+            'postcode' => 'required|max:10',
+            'prefectures' => 'required|max:50',
+            'municipalities' => 'required|max:50',
+            'address_building' => 'max:50',
+            'phonenumber' => 'required|max:50',
+            'email' => 'required|email',
+            'comment' => 'required|max:300',
+            'instructor_id' => 'required',
+            'terms_payment' => 'required',
+            'unpaid' => 'required',
+            'status' => 'required|max:50',
+            'lesson_type' => 'required|max:50',
+            'pair_id' => 'max:50',
+            'enrollment_date' => 'required',
+        ]);
+
+        // インストラクターのバリデーションエラー処理
+        if ($validator->fails()) {
+            return redirect('/students/register')
+                ->withInput()
+                ->withErrors($validator);
+        }
+
+        // インストラクターの登録処理
+        $students = new Student;
+        $students->firstname = $request->firstname;
+        $students->lastname = $request->lastname;
+        $students->firstname_ruby = $request->firstname_ruby;
+        $students->lastname_ruby = $request->lastname_ruby;
+        $students->sex = $request->sex;
+        $students->birthdate = $request->birthdate;
+        $students->guardian_firstname = $request->guardian_firstname;
+        $students->guardian_lastname = $request->guardian_lastname;
+        $students->guardian_firstname_ruby = $request->guardian_firstname_ruby;
+        $students->guardian_lastname_ruby = $request->guardian_lastname_ruby;
+        $students->relationship = $request->relationship;
+        $students->postcode = $request->postcode;
+        $students->prefectures = $request->prefectures;
+        $students->municipalities = $request->municipalities;
+        $students->address_building = $request->address_building;
+        $students->phonenumber = $request->phonenumber;
+        $students->email = $request->email;
+        $students->comment = $request->comment;
+        $students->instructor_id = $request->instructor_id;
+        $students->terms_payment = $request->terms_payment;
+        $students->unpaid = $request->unpaid;
+        $students->status = $request->status;
+        $students->lesson_type = $request->lesson_type;
+        $students->pair_id = $request->pair_id;
+        $students->enrollment_date = $request->enrollment_date;
+        $students->expel_date = $request->expel_date;
+        $students->trial_lesson_date = $request->trial_lesson_date;
+        $students->save();
+        return redirect('/students/register');
     }
 }

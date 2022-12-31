@@ -5,22 +5,22 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-sm-6">
+        <div class="col-6">
             <label for="name">性・名</label>
             <p>{{ $instructor->firstname }} {{ $instructor->lastname }}</p>
         </div>
-        <div class="col-sm-6">
+        <div class="col-6">
             <label for="furigana">性・名(フリガナ)</label>
             <p>{{ $instructor->firstname_ruby }} {{ $instructor->lastname_ruby }}</p>
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-6">
+        <div class="col-6">
             <label for="nyuukoubi">入校日</label>
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-6">
+        <div class="col-6">
             <?php 
                 $s1 = substr($instructor->enrollment_date, 0, 4);
                 $s2 = substr($instructor->enrollment_date, 5, 2);

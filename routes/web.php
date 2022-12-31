@@ -3,16 +3,6 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
 // インストラクターの新規登録画面
 Route::get('/instructors/register', 'App\Http\Controllers\UsController@instructorRegister');
@@ -34,3 +24,24 @@ Route::post('/instructors/update', 'App\Http\Controllers\UsController@instructor
 
 // インストラクターの削除
 Route::delete('/instructor/{instructor}', 'App\Http\Controllers\UsController@instructorDestroy');
+
+// 生徒の新規登録画面
+Route::get('/students/register', 'App\Http\Controllers\UsController@studentRegister');
+
+// 生徒の新規登録処理
+Route::post('/students/register', 'App\Http\Controllers\UsController@studentCreate');
+
+// 生徒の一覧表示
+Route::get('/students/show', 'App\Http\Controllers\UsController@studentShow');
+
+// 生徒の詳細表示
+Route::get('/students/detail/{student}', 'App\Http\Controllers\UsController@studentDetailShow');
+
+// 生徒の更新画面
+Route::get('/students/edit/{student}', 'App\Http\Controllers\UsController@studentEdit');
+
+// 生徒の更新処理
+Route::post('/students/update', 'App\Http\Controllers\UsController@studentUpdate');
+
+// 生徒の削除
+Route::delete('/student/{student}', 'App\Http\Controllers\UsController@studentDestroy');
