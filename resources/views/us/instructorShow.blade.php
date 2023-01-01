@@ -3,7 +3,7 @@
 @section('title', 'インストラクター一覧')
 
 @section('content')
-<a href="http://localhost/instructors/register">新規登録</a>
+<a href="http://localhost/instructors/register" class="btn btn-success rounded m-1 mb-2">新規登録</a>
 @if (count($instructors) > 0)
 <table>
     <!-- テーブルヘッダ -->

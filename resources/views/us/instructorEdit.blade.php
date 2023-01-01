@@ -38,10 +38,10 @@
             autocomplete="off" value="{{ $instructor->enrollment_date }}">
     </div>
     <div class="col-sm-offset-3 col-sm-6">
-        <button type="submit" class="btn btn-primary">
+        <button type="submit" class="btn btn-primary mr-1">
             再登録
         </button>
-        <a class="btn btn-link pull-rigth" href="{{ url('/instructors/show') }}">
+        <a class="btn btn-info rounded" href="{{ url('/instructors/show') }}">
             一覧へ
         </a>
     </div>

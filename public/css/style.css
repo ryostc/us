@@ -1,0 +1,46 @@
+.checkedmark{
+	padding-left:24px;
+	position:relative;
+}
+
+.checkedmark:before,
+.checkedmark:after{
+	content:"";
+	display:block;
+	position:absolute;
+}
+.checkedmark:before{
+	width:16px;
+	height:16px;
+	border-radius:3px;
+	background:#ffffff;
+	border:1px solid #696969;
+	left:0;top:2px;
+}
+.checkedmark:after{
+	border-left:2px solid red;
+	border-bottom:2px solid red;
+	width:15px;
+	height:5px;
+	-webkit-transform:rotate(-45deg);
+	transform:rotate(-45deg);
+	left:5px;
+	top:3px;
+}
+
+.checkmark{
+	padding-left:24px;
+	position:relative;
+}
+
+.checkmark:before{
+	content:"";
+	display:block;
+	position:absolute;
+    width:16px;
+	height:16px;
+	border-radius:3px;
+	background:#ffffff;
+	border:1px solid #696969;
+	left:3px;top:2px;
+}
