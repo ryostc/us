@@ -134,7 +134,7 @@
         <div class="form-row">
             <div class="form-group col-6">
                 <label for="unpaid_label" class="col-form-label">未払い</label>
-                <input type="hidden" id="unpaid_label" name="unpaid" autocomplete="off" value="0">
+                <input type="hidden" name="unpaid" autocomplete="off" value="0">
                 <input type="checkbox" id="unpaid_label" name="unpaid" autocomplete="off" value="1">
             </div>
         </div>

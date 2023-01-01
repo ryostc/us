@@ -81,9 +81,9 @@ class UsController extends Controller
     }
 
     /**
-     * インストラクターの編集画面表示
+     * インストラクターの詳細画面表示
      *
-     * @param Instructor $instructor 編集したいインストラクターの個人情報
+     * @param Instructor $instructor 詳細を確認したいインストラクターの個人情報
      * @return void
      */
     public function instructorDetailShow(Instructor $instructor)
@@ -235,5 +235,30 @@ class UsController extends Controller
         $students->trial_lesson_date = $request->trial_lesson_date;
         $students->save();
         return redirect('/students/register');
+    }
+
+    /**
+     * 生徒の一覧表示
+     */
+    public function studentShow()
+    {
+        $students = Student::orderBy('created_at', 'asc')->get();
+        return view('us.studentShow', [
+            'students' => $students,
+        ]);
+    }
+
+    /**
+     * 生徒の詳細画面表示
+     *
+     * @param Student $student 詳細を確認したい生徒の個人情報
+     * @return void
+     */
+    public function studentDetailShow(Student $student)
+    {
+        $instructor = Instructor::find($student->instructor_id);
+        $pair_student = Student::find($student->pair_id);
+        $param = ['student' => $student, 'pair_student' => $pair_student, 'instructor' => $instructor];
+        return view('us.studentDetailShow', $param);
     }
 }
