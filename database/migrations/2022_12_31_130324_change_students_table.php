@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string("guardian_firstname_ruby")->nullable()->change();
             $table->string("guardian_lastname_ruby")->nullable()->change();
             $table->string("relationship")->nullable()->change();
+            $table->text("address_building")->nullable()->change();
         });
     }
 
@@ -37,6 +38,8 @@ return new class extends Migration
             $table->string("guardian_firstname_ruby")->default("")->change();
             $table->string("guardian_lastname_ruby")->default("")->change();
             $table->string("relationship")->default("")->change();
+            // データ型のnullableを解除する
+            $table->text("address_building")->change();
         });
     }
 };
