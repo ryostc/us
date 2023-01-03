@@ -156,9 +156,21 @@ class UsController extends Controller
     public function studentRegister()
     {
         $instructors = Instructor::orderBy('created_at', 'asc')->get();
-        return view('us.studentRegister', [
-            'instructors' => $instructors,
-        ]);
+        $statuses = [
+            '入校',
+            '体験',
+            '体験追っかけ',
+            '体験非入校',
+            '退校'
+        ];
+        $lesson_types = [
+            '個人レッスン月2回',
+            '個人レッスン月3回',
+            '個人レッスン月4回',
+            'ペアレッスン月2回'
+        ];
+        $param = ['instructors' => $instructors, 'statuses' => $statuses, 'lesson_types' => $lesson_types];
+        return view('us.studentRegister', $param);
     }
 
     /**
@@ -256,9 +268,9 @@ class UsController extends Controller
      */
     public function studentDetailShow(Student $student)
     {
-        $instructor = Instructor::find($student->instructor_id);
+        $personalInstructor = Instructor::find($student->instructor_id);
         $pair_student = Student::find($student->pair_id);
-        $param = ['student' => $student, 'pair_student' => $pair_student, 'instructor' => $instructor];
+        $param = ['student' => $student, 'pair_student' => $pair_student, 'personalInstructor' => $personalInstructor];
         return view('us.studentDetailShow', $param);
     }
 }

@@ -144,11 +144,9 @@
                 <label for="status_label" class="col-form-label">ステータス</label>
                 <select id="status_label" name="status" class="form-control">
                     <option value="">選択してください</option>
-                    <option value="入校">入校</option>
-                    <option value="体験">体験</option>
-                    <option value="体験追っかけ">体験追っかけ</option>
-                    <option value="体験非入校">体験非入校</option>
-                    <option value="退校">退校</option>
+                    @foreach ($statuses as $status)
+                    <option value={{ $status }}>{{ $status }}</option>
+                    @endforeach
                 </select>
             </div>
         </div>
@@ -158,10 +156,9 @@
                 <label for="lesson_type_label" class="col-form-label">レッスンタイプ</label>
                 <select id="lesson_type_label" name="lesson_type" class="form-control">
                     <option value="">選択してください</option>
-                    <option value="個人レッスン月2回">個人レッスン月2回</option>
-                    <option value="個人レッスン月3回">個人レッスン月3回</option>
-                    <option value="個人レッスン月4回">個人レッスン月4回</option>
-                    <option value="ペアレッスン月2回">ペアレッスン月2回</option>
+                    @foreach ($lesson_types as $lesson_type)
+                    <option value={{ $lesson_type }}>{{ $lesson_type }}</option>
+                    @endforeach
                 </select>
             </div>
         </div>
