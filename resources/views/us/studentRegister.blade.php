@@ -165,13 +165,6 @@
 
         <div class="form-row">
             <div class="form-group col-6">
-                <label for="pair_id_label" class="col-form-label">ペアのid</label>
-                <input type="number" id="pair_id_label" class="form-control" name="pair_id" autocomplete="off" value=-1>
-            </div>
-        </div>
-
-        <div class="form-row">
-            <div class="form-group col-6">
                 <label for="enrollment_date_label" class="col-form-label">入校日</label>
                 <input type="date" id="enrollment_date_label" class="form-control" name="enrollment_date"
                     autocomplete="off" value="{{ old('enrollment_date') }}">

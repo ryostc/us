@@ -222,7 +222,7 @@
             </div>
             <div class="form-group col-6">
                 <label for="pair_name_label" class="col-form-label">ペアの名前</label>
-                @if ($student->pair_id != "-1")
+                @if ($student->pair_id != -1)
                 <input type="text" id="pair_name_label" class="form-control" name="pair_name" value={{
                     $pair_student->firstname }}{{ $pair_student->lastname }} disabled>
                 @else

@@ -241,7 +241,7 @@ class UsController extends Controller
         $students->unpaid = $request->unpaid;
         $students->status = $request->status;
         $students->lesson_type = $request->lesson_type;
-        $students->pair_id = $request->pair_id;
+        $students->pair_id = -1;
         $students->enrollment_date = $request->enrollment_date;
         $students->expel_date = $request->expel_date;
         $students->trial_lesson_date = $request->trial_lesson_date;
@@ -310,7 +310,7 @@ class UsController extends Controller
      */
     public function studentUpdate(Request $request)
     {
-        // インストラクターのバリデーション処理
+        // 生徒のバリデーション処理
         $validator = Validator::make($request->all(), [
             'firstname' => 'required|max:50',
             'lastname' => 'required|max:50',
@@ -339,7 +339,7 @@ class UsController extends Controller
             'enrollment_date' => 'required',
         ]);
 
-        // インストラクターのバリデーションエラー処理
+        // 生徒のバリデーションエラー処理
         if ($validator->fails()) {
             return redirect('/students/edit/' . $request->id)
                 ->withInput()
@@ -352,7 +352,29 @@ class UsController extends Controller
         $students->lastname = $request->lastname;
         $students->firstname_ruby = $request->firstname_ruby;
         $students->lastname_ruby = $request->lastname_ruby;
+        $students->sex = $request->sex;
+        $students->birthdate = $request->birthdate;
+        $students->guardian_firstname = $request->guardian_firstname;
+        $students->guardian_lastname = $request->guardian_lastname;
+        $students->guardian_firstname_ruby = $request->guardian_firstname_ruby;
+        $students->guardian_lastname_ruby = $request->guardian_lastname_ruby;
+        $students->relationship = $request->relationship;
+        $students->postcode = $request->postcode;
+        $students->prefectures = $request->prefectures;
+        $students->municipalities = $request->municipalities;
+        $students->address_building = $request->address_building;
+        $students->phonenumber = $request->phonenumber;
+        $students->email = $request->email;
+        $students->comment = $request->comment;
+        $students->instructor_id = $request->instructor_id;
+        $students->terms_payment = $request->terms_payment;
+        $students->unpaid = $request->unpaid;
+        $students->status = $request->status;
+        $students->lesson_type = $request->lesson_type;
+        $students->pair_id = $request->pair_id;
         $students->enrollment_date = $request->enrollment_date;
+        $students->expel_date = $request->expel_date;
+        $students->trial_lesson_date = $request->trial_lesson_date;
         $students->save();
         return redirect('/students/detail/' . $students->id);
     }
