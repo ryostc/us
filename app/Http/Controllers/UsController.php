@@ -273,4 +273,87 @@ class UsController extends Controller
         $param = ['student' => $student, 'pair_student' => $pair_student, 'personalInstructor' => $personalInstructor];
         return view('us.studentDetailShow', $param);
     }
+
+    /**
+     * 生徒の編集画面表示
+     *
+     * @param Student $student 編集したい生徒の個人情報
+     * @return void
+     */
+    public function studentEdit(Student $student)
+    {
+        $personalInstructor = Instructor::find($student->instructor_id);
+        $instructors = Instructor::orderBy('created_at', 'asc')->get();
+        $pair_student = Student::find($student->pair_id);
+        $statuses = [
+            '入校',
+            '体験',
+            '体験追っかけ',
+            '体験非入校',
+            '退校'
+        ];
+        $lesson_types = [
+            '個人レッスン月2回',
+            '個人レッスン月3回',
+            '個人レッスン月4回',
+            'ペアレッスン月2回'
+        ];
+        $param = ['student' => $student, 'pair_student' => $pair_student, 'personalInstructor' => $personalInstructor, 'instructors' => $instructors, 'statuses' => $statuses, 'lesson_types' => $lesson_types];
+        return view('us.studentEdit', $param);
+    }
+
+    /**
+     * 生徒の編集処理
+     *
+     * @param Request $request 入力された編集したい生徒の個人情報
+     * @return void
+     */
+    public function studentUpdate(Request $request)
+    {
+        // インストラクターのバリデーション処理
+        $validator = Validator::make($request->all(), [
+            'firstname' => 'required|max:50',
+            'lastname' => 'required|max:50',
+            'firstname_ruby' => 'required|max:50',
+            'lastname_ruby' => 'required|max:50',
+            'sex' => 'required',
+            'birthdate' => 'required|max:50',
+            'guardian_firstname' => 'max:50',
+            'guardian_lastname' => 'max:50',
+            'guardian_firstname_ruby' => 'max:50',
+            'guardian_lastname_ruby' => 'max:50',
+            'relationship' => 'max:30',
+            'postcode' => 'required|max:10',
+            'prefectures' => 'required|max:50',
+            'municipalities' => 'required|max:50',
+            'address_building' => 'max:50',
+            'phonenumber' => 'required|max:50',
+            'email' => 'required|email',
+            'comment' => 'required|max:300',
+            'instructor_id' => 'required',
+            'terms_payment' => 'required',
+            'unpaid' => 'required',
+            'status' => 'required|max:50',
+            'lesson_type' => 'required|max:50',
+            'pair_id' => 'max:50',
+            'enrollment_date' => 'required',
+        ]);
+
+        // インストラクターのバリデーションエラー処理
+        if ($validator->fails()) {
+            return redirect('/students/edit/' . $request->id)
+                ->withInput()
+                ->withErrors($validator);
+        }
+
+        // 更新処理
+        $students = Student::find($request->id);
+        $students->firstname = $request->firstname;
+        $students->lastname = $request->lastname;
+        $students->firstname_ruby = $request->firstname_ruby;
+        $students->lastname_ruby = $request->lastname_ruby;
+        $students->enrollment_date = $request->enrollment_date;
+        $students->save();
+        return redirect('/students/detail/' . $students->id);
+    }
 }
