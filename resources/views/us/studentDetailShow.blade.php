@@ -14,10 +14,11 @@
                 </button>
             </form>
 
-            <!-- 生徒: 削除ボタン -->
-            <form action="{{ url('student/'.$student->id) }}" method="POST">
+            <!-- インストラクター: 削除ボタン -->
+            <form action="{{ url('student/remove') }}" method="POST">
                 @csrf
-                @method('DELETE')
+                {{-- id値を送信 --}}
+                <input type="hidden" name="id" value={{ $student->id }}>
 
                 <button type="submit" class="btn btn-danger mr-1" onClick="delete_alert(event);return false;">
                     削除

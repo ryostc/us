@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Instructor;
 use App\Models\Student;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 class UsController extends Controller
 {
@@ -139,14 +140,14 @@ class UsController extends Controller
     }
 
     /**
-     * インストラクターの削除
+     * インストラクターの削除テスト
      *
      * @param Instructor $instructor 削除したいインストラクターの情報
      * @return void
      */
-    public function instructorDestroy(Instructor $instructor)
+    public function instructorRemove(Request $request)
     {
-        $instructor->delete();
+        DB::table('instructors')->where('id', $request->id)->delete();
         return redirect('/instructors/show');
     }
 
@@ -382,12 +383,12 @@ class UsController extends Controller
     /**
      * 生徒の削除
      *
-     * @param Instructor $instructor 削除したいインストラクターの情報
+     * @param Request $request 削除したい生徒のidを保持
      * @return void
      */
-    public function studentDestroy(Student $student)
+    public function studentRemove(Request $request)
     {
-        $student->delete();
+        DB::table('students')->where('id', $request->id)->delete();
         return redirect('/students/show');
     }
 }

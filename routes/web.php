@@ -25,6 +25,9 @@ Route::post('/instructors/update', 'App\Http\Controllers\UsController@instructor
 // インストラクターの削除
 Route::delete('/instructor/{instructor}', 'App\Http\Controllers\UsController@instructorDestroy');
 
+// インストラクターの削除
+Route::POST('/instructor/remove', 'App\Http\Controllers\UsController@instructorRemove');
+
 // 生徒の新規登録画面
 Route::get('/students/register', 'App\Http\Controllers\UsController@studentRegister');
 
@@ -44,4 +47,4 @@ Route::get('/students/edit/{student}', 'App\Http\Controllers\UsController@studen
 Route::post('/students/update', 'App\Http\Controllers\UsController@studentUpdate');
 
 // 生徒の削除
-Route::delete('/student/{student}', 'App\Http\Controllers\UsController@studentDestroy');
+Route::post('/student/remove', 'App\Http\Controllers\UsController@studentRemove');
