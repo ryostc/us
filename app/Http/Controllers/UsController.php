@@ -356,4 +356,16 @@ class UsController extends Controller
         $students->save();
         return redirect('/students/detail/' . $students->id);
     }
+
+    /**
+     * 生徒の削除
+     *
+     * @param Instructor $instructor 削除したいインストラクターの情報
+     * @return void
+     */
+    public function studentDestroy(Student $student)
+    {
+        $student->delete();
+        return redirect('/students/show');
+    }
 }
