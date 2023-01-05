@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', '生徒一覧')
+@section('title', '生徒の検索結果')
 
 @section('content')
 <div class="text-right">
@@ -45,7 +45,7 @@
             @endforeach
         </tr>
         @empty
-        <td>生徒が登録されていません</td>
+        <td>検索の対象がありませんでした</td>
         @endforelse
     </tbody>
 </table>

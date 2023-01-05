@@ -336,7 +336,7 @@
         </div>
     </fieldset>
 
-    <div class="col-sm-offset-3 col-sm-6">
+    <div class="col-sm-offset-3 col-sm-6 mb-2">
         <button type="submit" class="btn btn-primary mr-1">
             再登録
         </button>

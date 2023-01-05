@@ -48,3 +48,12 @@ Route::post('/students/update', 'App\Http\Controllers\UsController@studentUpdate
 
 // 生徒の削除
 Route::post('/student/remove', 'App\Http\Controllers\UsController@studentRemove');
+
+// 生徒の検索画面
+Route::get('/students/search', 'App\Http\Controllers\UsController@studentSearchScreen');
+
+// 生徒の検索処理
+Route::post('/students/search', 'App\Http\Controllers\UsController@studentSearch');
+
+// 生徒の管理画面
+Route::get('/students/control', 'App\Http\Controllers\UsController@studentControl');

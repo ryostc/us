@@ -3,14 +3,16 @@
 @section('title', 'インストラクター一覧')
 
 @section('content')
-<a href="http://localhost/instructors/register" class="btn btn-success rounded m-1 mb-2">新規登録</a>
+<div class="text-right">
+    <!-- インストラクターの新規登録画面へ遷移 -->
+    <a href="http://localhost/instructors/register" class="col-2 btn btn-success rounded m-1 mb-2">新規登録</a>
+</div>
 @if (count($instructors) > 0)
-<table>
+<table class="table">
     <!-- テーブルヘッダ -->
     <thead>
         <th>名前</th>
         <th>入校日</th>
-        <th>&nbsp;</th>
     </thead>
     <!-- テーブル本体 -->
     <tbody>

@@ -247,7 +247,7 @@
     </fieldset>
 
     <div class="col-sm-offset-3 col-6">
-        <button type="submit" class="btn btn-primary">
+        <button type="submit" class="btn btn-primary mb-2">
             登録
         </button>
     </div>

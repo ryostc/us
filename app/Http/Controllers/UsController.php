@@ -10,6 +10,19 @@ use Illuminate\Support\Facades\DB;
 
 class UsController extends Controller
 {
+    private $statuses = [
+        '入校',
+        '体験',
+        '体験追っかけ',
+        '体験非入校',
+        '退校'
+    ];
+    private $lesson_types = [
+        '個人レッスン月2回',
+        '個人レッスン月3回',
+        '個人レッスン月4回',
+        'ペアレッスン月2回'
+    ];
     /**
      * インストラクター登録画面
      */
@@ -157,19 +170,8 @@ class UsController extends Controller
     public function studentRegister()
     {
         $instructors = Instructor::orderBy('created_at', 'asc')->get();
-        $statuses = [
-            '入校',
-            '体験',
-            '体験追っかけ',
-            '体験非入校',
-            '退校'
-        ];
-        $lesson_types = [
-            '個人レッスン月2回',
-            '個人レッスン月3回',
-            '個人レッスン月4回',
-            'ペアレッスン月2回'
-        ];
+        $statuses = $this->statuses;
+        $lesson_types = $this->lesson_types;
         $param = ['instructors' => $instructors, 'statuses' => $statuses, 'lesson_types' => $lesson_types];
         return view('us.studentRegister', $param);
     }
@@ -256,9 +258,9 @@ class UsController extends Controller
     public function studentShow()
     {
         $students = Student::orderBy('created_at', 'asc')->get();
-        return view('us.studentShow', [
-            'students' => $students,
-        ]);
+        $instructors = Instructor::orderBy('created_at', 'asc')->get();
+        $param = ['students' => $students, 'instructors' => $instructors];
+        return view('us.studentShow', $param);
     }
 
     /**
@@ -286,19 +288,8 @@ class UsController extends Controller
         $personalInstructor = Instructor::find($student->instructor_id);
         $instructors = Instructor::orderBy('created_at', 'asc')->get();
         $pair_student = Student::find($student->pair_id);
-        $statuses = [
-            '入校',
-            '体験',
-            '体験追っかけ',
-            '体験非入校',
-            '退校'
-        ];
-        $lesson_types = [
-            '個人レッスン月2回',
-            '個人レッスン月3回',
-            '個人レッスン月4回',
-            'ペアレッスン月2回'
-        ];
+        $statuses = $this->statuses;
+        $lesson_types = $this->lesson_types;
         $param = ['student' => $student, 'pair_student' => $pair_student, 'personalInstructor' => $personalInstructor, 'instructors' => $instructors, 'statuses' => $statuses, 'lesson_types' => $lesson_types];
         return view('us.studentEdit', $param);
     }
@@ -390,5 +381,45 @@ class UsController extends Controller
     {
         DB::table('students')->where('id', $request->id)->delete();
         return redirect('/students/show');
+    }
+
+    /**
+     * 生徒の検索画面
+     */
+    public function studentSearchScreen()
+    {
+        $statuses = $this->statuses;
+        $lesson_types = $this->lesson_types;
+        $param = ['statuses' => $statuses, 'lesson_types' => $lesson_types];
+        return view('us.studentSearch', $param);
+    }
+
+    /**
+     * 生徒の検索処理
+     */
+    public function studentSearch(Request $request)
+    {
+        $students = DB::table('students')
+            ->where('firstname', 'like', '%' . $request->firstname . '%')
+            ->where('lastname', 'like', '%' . $request->lastname . '%')
+            ->where('firstname_ruby', 'like', '%' . $request->firstname_ruby . '%')
+            ->where('lastname_ruby', 'like', '%' . $request->lastname_ruby . '%')
+            ->where('phonenumber', 'like', '%' . $request->phonenumber . '%')
+            ->where('email', 'like', '%' . $request->email . '%')
+            ->where('status', 'like', '%' . $request->status . '%')
+            ->where('lesson_type', 'like', '%' . $request->lesson_type . '%')
+            ->where('unpaid', 'like', '%' . $request->unpaid . '%')
+            ->get();
+        $instructors = Instructor::orderBy('created_at', 'asc')->get();
+        $param = ['students' => $students, 'instructors' => $instructors];
+        return view('us.studentSearchResult', $param);
+    }
+
+    /**
+     * 生徒管理画面の表示
+     */
+    public function studentControl()
+    {
+        return view('us.studentControl');
     }
 }

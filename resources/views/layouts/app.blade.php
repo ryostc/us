@@ -17,15 +17,13 @@
 </head>
 
 <body>
-    <div class="container">
+    <div class="container mt-2">
         <header>
             <h1>@yield('title')</h1>
-            <div class="gnav">
-                <ul class="nav_group">
-                    <li class="nav_menu"><a href="#">生徒管理</a></li>
-                    <li class="nav_menu"><a href="#">スケジュール管理</a></li>
-                    <li class="nav_menu"><a href="http://localhost/instructors/show">インストラクター一覧</a></li>
-                </ul>
+            <div class="btn-group-lg text-center m-3">
+                <a href="{{ url('/students/control') }}" class="col-3 btn btn-outline-secondary">生徒管理</a>
+                <a href="#" class="col-3  btn btn-outline-secondary">スケジュール管理</a>
+                <a href="http://localhost/instructors/show" class="col-3 btn btn-outline-secondary">インストラクター一覧</a>
             </div>
         </header>
         <div class="content">
