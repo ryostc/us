@@ -24,11 +24,6 @@
                     削除
                 </button>
             </form>
-
-            <!-- インストラクターの一覧表示へ戻る -->
-            <a class="btn btn-info rounded" href="{{ url('/instructors/show') }}">
-                一覧へ
-            </a>
         </div>
     </div>
     <div class="row ml-1">

@@ -41,9 +41,6 @@
         <button type="submit" class="btn btn-primary mr-1">
             再登録
         </button>
-        <a class="btn btn-info rounded" href="{{ url('/instructors/show') }}">
-            一覧へ
-        </a>
     </div>
 
     {{-- id値を送信 --}}
