@@ -21,8 +21,8 @@
         <header>
             <h1>@yield('title')</h1>
             <div class="btn-group-lg text-center m-3">
-                <a href="{{ url('/students/control') }}" class="col-3 btn btn-outline-secondary">生徒管理</a>
-                <a href="#" class="col-3  btn btn-outline-secondary">スケジュール管理</a>
+                <a href={{ url('/students/control') }} class="col-3 btn btn-outline-secondary">生徒管理</a>
+                <a href={{ url('/schedules/control') }} class="col-3  btn btn-outline-secondary">スケジュール管理</a>
                 <a href="http://localhost/instructors/show" class="col-3 btn btn-outline-secondary">インストラクター一覧</a>
             </div>
         </header>

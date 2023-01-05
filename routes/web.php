@@ -57,3 +57,9 @@ Route::post('/students/search', 'App\Http\Controllers\UsController@studentSearch
 
 // 生徒の管理画面
 Route::get('/students/control', 'App\Http\Controllers\UsController@studentControl');
+
+// スケジュールの管理画面
+Route::get('/schedules/control', 'App\Http\Controllers\UsController@scheduleControl');
+
+// スケジュールの管理画面
+Route::get('/schedules/basic/{ym}/{j}', 'App\Http\Controllers\UsController@scheduleBasic');
