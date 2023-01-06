@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.schedule')
 
 @section('title', 'スケジュール基本')
 

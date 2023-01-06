@@ -26,6 +26,8 @@
                 <a href={{ url('/instructors/show') }} class="col-3 btn btn-outline-secondary">インストラクター一覧</a>
             </div>
         </header>
+    </div>
+    <div class="container-fluid m-3">
         <div class="content">
             @yield('content')
         </div>

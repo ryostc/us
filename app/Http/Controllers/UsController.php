@@ -80,7 +80,7 @@ class UsController extends Controller
             $date = $ym . '-' . $day;
 
             if ($today == $date) {
-                // 今日の日付の場合は、class="today"をつける
+                // 今日の日付の場合は、class="bg-warning"をつける
                 $week .= '<td class="bg-warning">';
             } else {
                 $week .= '<td>';
