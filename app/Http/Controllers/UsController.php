@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Instructor;
 use App\Models\Student;
+use App\Models\Schedule;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 
@@ -25,6 +26,23 @@ class UsController extends Controller
         '個人レッスン月3回',
         '個人レッスン月4回',
         'ペアレッスン月2回'
+    ];
+
+    // レッスンの時間の種類の配列
+    private $lesson_times = [
+        '10:00',
+        '11:00',
+        '12:00',
+        '13:00',
+        '14:00',
+        '15:00',
+        '16:00',
+        '17:00',
+        '18:00',
+        '19:00',
+        '20:00',
+        '21:00',
+        '22:00'
     ];
 
     private function createCalender()
@@ -522,10 +540,24 @@ class UsController extends Controller
      */
     public function scheduleBasic($ym, $j)
     {
-        $y = substr($ym, 0, 4);
-        $m = substr($ym, 5, 2);
+        $lesson_times = $this->lesson_times;
+
+        // 日付の0埋めなし
+        $day = $ym . "-" . $j;
+        // 日付の0埋めあり
+        $date = date('Y-m-d', strtotime($day));
+
+        $y = date('Y', strtotime($day));
+        $m = date('n', strtotime($day));
+
+        // 該当するスケジュールの検索
+        $schedules = DB::table('schedules')
+            ->where('date', $date)
+            ->get();
+        // カレンダーの作成のための情報を取得
         [$prev, $next, $weeks, $html_title, $thismonth] = $this->createCalender();
-        $param = ['y' => $y, 'm' => $m, 'j' => $j, 'prev' => $prev, 'next' => $next, 'weeks' => $weeks, 'html_title' => $html_title, 'thismonth' => $thismonth];
+
+        $param = ['lesson_times' => $lesson_times, 'schedules' => $schedules, 'y' => $y, 'm' => $m, 'j' => $j, 'prev' => $prev, 'next' => $next, 'weeks' => $weeks, 'html_title' => $html_title, 'thismonth' => $thismonth];
         return view('us.scheduleBasic', $param);
     }
 }

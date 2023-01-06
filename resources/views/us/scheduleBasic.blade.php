@@ -1,30 +1,38 @@
 @extends('layouts.schedule')
 
-@section('title', 'スケジュール基本')
+@section('title', 'スケジュール管理')
 
 @section('content')
-<div>{{ $y }}年{{ $m }}月{{ $j }}日</div>
-<div class="calender">
-    <div class="row mb-3">
-        <h4 class="mr-2">
-            <a href="?ym={{ $prev }}">&lt;&lt;</a>
-            {{ $html_title }}
-            <a href="?ym={{ $next }}">&gt;&gt;</a>
-        </h4>
-        <a class="btn-sm btn-warning" href="?ym={{ $thismonth }}">今月</a>
-    </div>
-    <table class="table-sm table-bordered">
+<h3>{{ $y }}年{{ $m }}月{{ $j }}日</h3>
+<div class="schedules">
+    <table class="table table-bordered">
         <tr>
-            <th>日</th>
-            <th>月</th>
-            <th>火</th>
-            <th>水</th>
-            <th>木</th>
-            <th>金</th>
-            <th>土</th>
+            <th>時間</th>
+            <th>名前</th>
+            <th>実施インストラクター</th>
+            <th>月謝未払い</th>
+            <th>memo</th>
         </tr>
-        @foreach ($weeks as $week)
-        {!! $week !!}
+        @foreach ($lesson_times as $lesson_time)
+        <tr>
+            <td>{{ $lesson_time }}</td>
+            @foreach ($schedules as $schedule)
+            @if ($schedule->time == $lesson_time)
+            @php
+            $student = DB::table('students')->where('id', $schedule->student_id)->first();
+            $instructor = DB::table('instructors')->where('id', $schedule->instructor_id)->first();
+            @endphp
+            <td>{{ $student->firstname }}{{ $student->lastname }}</td>
+            <td>{{ $instructor->firstname }}{{ $instructor->lastname }}</td>
+            @if ($student->unpaid == "0")
+            <td><span class="checkmark"></span></td>
+            @elseif($student->unpaid == "1")
+            <td><span class="checkedmark"></span></td>
+            @endif
+            <td>{{ $schedule->memo }}</td>
+            @endif
+            @endforeach
+        </tr>
         @endforeach
     </table>
 </div>

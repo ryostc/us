@@ -26,6 +26,16 @@ class schedulesTableSeeder extends Seeder
         DB::table('schedules')->insert($param);
 
         $param = [
+            'student_id' => 5,
+            'instructor_id' => 15,
+            'date' => '2023-01-01',
+            'time' => '14:00',
+            'lesson_type' => '個人レッスン月4回',
+            'memo' => ' ',
+        ];
+        DB::table('schedules')->insert($param);
+
+        $param = [
             'student_id' => 2,
             'instructor_id' => 5,
             'date' => '2023-01-01',
