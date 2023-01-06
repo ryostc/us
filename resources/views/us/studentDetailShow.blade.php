@@ -58,11 +58,9 @@
         <div class="col-6">
             <label for="birthdate">誕生日</label>
             @php
-            $year = substr($student->birthdate, 0, 4);
-            $month = substr($student->birthdate, 5, 2);
-            $date = substr($student->birthdate, 8, 2);
-            echo "<p class='ml-2'> $year 年 $month 月 $date 日 </p>";
+            $date = date('Y年n月j日', strtotime($student->birthdate));
             @endphp
+            <p class="ml-2">{{ $date }}</p>
         </div>
     </div>
     @if ($student->guardian_firstname != null)
@@ -154,38 +152,38 @@
     <div class="row ml-1">
         <div class="col-6">
             <label for="enrollment_date" class="lead">入校日</label>
+            @if ($student->enrollment_date != null)
             @php
-            $year = substr($student->enrollment_date, 0, 4);
-            $month = substr($student->enrollment_date, 5, 2);
-            $date = substr($student->enrollment_date, 8, 2);
-            echo "<p class='ml-2'> $year 年 $month 月 $date 日 </p>";
+            $date = date('Y年n月j日', strtotime($student->enrollment_date));
             @endphp
+            <p class="ml-2">{{ $date }}</p>
+            @else
+            <p class="ml-2">なし</p>
+            @endif
         </div>
-        @if ($student->expel_date != null)
         <div class="col-6">
             <label for="expel_date" class="lead">退校日</label>
+            @if ($student->expel_date != null)
             @php
-            $year = substr($student->expel_date, 0, 4);
-            $month = substr($student->expel_date, 5, 2);
-            $date = substr($student->expel_date, 8, 2);
-            echo "<p class='ml-2'> $year 年 $month 月 $date 日 </p>";
+            $date = date('Y年n月j日', strtotime($student->expel_date));
             @endphp
+            <p class="ml-2">{{ $date }}</p>
+            @else
+            <p class="ml-2">なし</p>
+            @endif
         </div>
-        @endif
     </div>
 
     <div class="row ml-1">
         <div class="col-6">
             <label for="trial_lesson_date" class="lead">体験レッスン実施日</label>
-            @if ($student->expel_date == null)
-            <p class='ml-2'>体験レッスンを実施していません</p>
-            @else
+            @if ($student->trial_lesson_date != null)
             @php
-            $year = substr($student->trial_lesson_date, 0, 4);
-            $month = substr($student->trial_lesson_date, 5, 2);
-            $date = substr($student->trial_lesson_date, 8, 2);
-            echo "<p class='ml-2'> $year 年 $month 月 $date 日 </p>";
+            $date = date('Y年n月j日', strtotime($student->trial_lesson_date));
             @endphp
+            <p class="ml-2">{{ $date }}</p>
+            @else
+            <p class="ml-2">体験レッスンの実施していません</p>
             @endif
         </div>
     </div>

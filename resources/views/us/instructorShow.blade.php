@@ -27,12 +27,10 @@
 
             <!-- インストラクターの入校日 -->
             <td>
-                <?php 
-                    $s1 = substr($instructor->enrollment_date, 0, 4);
-                    $s2 = substr($instructor->enrollment_date, 5, 2);
-                    $s3 = substr($instructor->enrollment_date, 8, 2);
-                    echo "<div> $s1 年 $s2 月 $s3 日 </div>";
-                ?>
+                @php
+                $date = date('Y年n月d日', strtotime($instructor->enrollment_date));
+                @endphp
+                <p class="ml-2">{{ $date }}</p>
             </td>
         </tr>
         @endforeach

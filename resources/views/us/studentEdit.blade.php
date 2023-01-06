@@ -232,11 +232,19 @@
         </div>
 
         <div class="form-row">
+            @if ($student->enrollment_date == null)
+            <div class="form-group col-6">
+                <label for="enrollment_date_label" class="col-form-label">入校日</label>
+                <input type="date" id="enrollment_date_label" class="form-control" name="enrollment_date"
+                    autocomplete="off" value="{{ old('enrollment_date') }}">
+            </div>
+            @else
             <div class="form-group col-6">
                 <label for="enrollment_date_label" class="col-form-label">入校日</label>
                 <input type="date" id="enrollment_date_label" class="form-control" name="enrollment_date"
                     autocomplete="off" value="{{ $student->enrollment_date }}">
             </div>
+            @endif
 
             @if ($student->expel_date == null)
             <div class="form-group col-6">

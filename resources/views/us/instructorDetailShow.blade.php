@@ -28,17 +28,17 @@
 <div class="row ml-1">
     <div class="col-6">
         <label class="lead" for="id">インストラクターID</label>
-        <p class='ml-1'>{{ $instructor->id }}</p>
+        <p class='ml-2'>{{ $instructor->id }}</p>
     </div>
 </div>
 <div class="row ml-1">
     <div class="col-6">
         <label for="name" class="lead">性・名</label>
-        <p class='ml-1'>{{ $instructor->firstname }} {{ $instructor->lastname }}</p>
+        <p class='ml-2'>{{ $instructor->firstname }} {{ $instructor->lastname }}</p>
     </div>
     <div class="col-6">
         <label for="furigana" class="lead">性・名(フリガナ)</label>
-        <p class='ml-1'>{{ $instructor->firstname_ruby }} {{ $instructor->lastname_ruby }}</p>
+        <p class='ml-2'>{{ $instructor->firstname_ruby }} {{ $instructor->lastname_ruby }}</p>
     </div>
 </div>
 <div class="row ml-1">
@@ -49,11 +49,9 @@
 <div class="row ml-1">
     <div class="col-6">
         @php
-        $s1 = substr($instructor->enrollment_date, 0, 4);
-        $s2 = substr($instructor->enrollment_date, 5, 2);
-        $s3 = substr($instructor->enrollment_date, 8, 2);
-        echo "<p class='ml-1'> $s1 年 $s2 月 $s3 日 </p>";
+        $date = date('Y年n月j日', strtotime($instructor->enrollment_date));
         @endphp
+        <p class='ml-2'>{{ $date }}</p>
     </div>
 </div>
 @endsection
