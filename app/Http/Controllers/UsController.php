@@ -163,24 +163,6 @@ class UsController extends Controller
         $instructors->firstname_ruby = $request->firstname_ruby;
         $instructors->lastname_ruby = $request->lastname_ruby;
         $instructors->enrollment_date = $request->enrollment_date;
-
-        // $enroll = $request->enrollment_date;
-        // dd($enroll);
-
-        // 文字列をUnixタイムスタンプに変換
-        // strtotime($enroll);
-        // dd(date('Y年m月d日', strtotime($enroll)));
-        // dd(strtotime($enroll));
-
-        // $s1 = substr($enroll, 0, 4);
-        // dd($s1);
-
-        // $s2 = substr($enroll, 5, 2);
-        // dd($s2);
-
-        // $s3 = substr($enroll, 8, 2);
-        // dd($s3);
-
         $instructors->save();
         return redirect('/instructors/register');
     }
@@ -526,7 +508,7 @@ class UsController extends Controller
     }
 
     /**
-     * 生徒管理画面の表示
+     * スケジュール管理画面の表示
      */
     public function scheduleControl()
     {
@@ -536,7 +518,7 @@ class UsController extends Controller
     }
 
     /**
-     * 生徒管理画面の表示
+     * 該当する日付のスケジュールを表示
      */
     public function scheduleBasic($ym, $j)
     {
@@ -548,7 +530,7 @@ class UsController extends Controller
         $date = date('Y-m-d', strtotime($day));
 
         $y = date('Y', strtotime($day));
-        $m = date('n', strtotime($day));
+        $n = date('n', strtotime($day));
 
         // 該当するスケジュールの検索
         $schedules = DB::table('schedules')
@@ -557,7 +539,153 @@ class UsController extends Controller
         // カレンダーの作成のための情報を取得
         [$prev, $next, $weeks, $html_title, $thismonth] = $this->createCalender();
 
-        $param = ['lesson_times' => $lesson_times, 'schedules' => $schedules, 'y' => $y, 'm' => $m, 'j' => $j, 'prev' => $prev, 'next' => $next, 'weeks' => $weeks, 'html_title' => $html_title, 'thismonth' => $thismonth];
+        $param = [
+            'date' => $date,
+            'lesson_times' => $lesson_times,
+            'schedules' => $schedules,
+            'y' => $y,
+            'n' => $n,
+            'j' => $j,
+            'prev' => $prev,
+            'next' => $next,
+            'weeks' => $weeks,
+            'html_title' => $html_title,
+            'thismonth' => $thismonth
+        ];
         return view('us.scheduleBasic', $param);
+    }
+
+    /**
+     * スケジュール新規登録画面の表示(生徒情報を入れる前)
+     */
+    public function scheduleRegister($date, $time)
+    {
+        $lesson_times = $this->lesson_times;
+        // カレンダーの作成のための情報を取得
+        [$prev, $next, $weeks, $html_title, $thismonth] = $this->createCalender();
+        $param = [
+            'date' => $date,
+            'lesson_times' => $lesson_times,
+            'time' => $time,
+            'prev' => $prev,
+            'next' => $next,
+            'weeks' => $weeks,
+            'html_title' => $html_title,
+            'thismonth' => $thismonth
+        ];
+        return view('us.scheduleRegister', $param);
+    }
+
+    /**
+     * スケジュール新規登録の検索画面の表示
+     */
+    public function scheduleRegisterSearch(Request $request)
+    {
+        // カレンダーの作成のための情報を取得
+        [$prev, $next, $weeks, $html_title, $thismonth] = $this->createCalender();
+        $param = [
+            'date' => $request->date,
+            'time' => $request->time,
+            'statuses' => $this->statuses,
+            'lesson_types' => $this->lesson_types,
+            'prev' => $prev,
+            'next' => $next,
+            'weeks' => $weeks,
+            'html_title' => $html_title,
+            'thismonth' => $thismonth
+        ];
+        return view('us.scheduleRegisterSearch', $param);
+    }
+
+    /**
+     * スケジュール新規登録の生徒検索処理と結果の表示
+     */
+    public function scheduleRegisterSearchResult(Request $request)
+    {
+        // 生徒検索処理
+        $students = DB::table('students')
+            ->where('firstname', 'like', '%' . $request->firstname . '%')
+            ->where('lastname', 'like', '%' . $request->lastname . '%')
+            ->where('firstname_ruby', 'like', '%' . $request->firstname_ruby . '%')
+            ->where('lastname_ruby', 'like', '%' . $request->lastname_ruby . '%')
+            ->where('phonenumber', 'like', '%' . $request->phonenumber . '%')
+            ->where('email', 'like', '%' . $request->email . '%')
+            ->where('status', 'like', '%' . $request->status . '%')
+            ->where('lesson_type', 'like', '%' . $request->lesson_type . '%')
+            ->get();
+
+        $instructors = Instructor::orderBy('created_at', 'asc')->get();
+
+        // カレンダーの作成のための情報を取得
+        [$prev, $next, $weeks, $html_title, $thismonth] = $this->createCalender();
+        $param = [
+            'students' => $students,
+            'instructors' => $instructors,
+            'date' => $request->date,
+            'time' => $request->time,
+            'statuses' => $this->statuses,
+            'lesson_types' => $this->lesson_types,
+            'prev' => $prev,
+            'next' => $next,
+            'weeks' => $weeks,
+            'html_title' => $html_title,
+            'thismonth' => $thismonth
+        ];
+        return view('us.scheduleRegisterSearchResult', $param);
+    }
+
+    /**
+     * スケジュール新規登録画面の表示(生徒情報を入れた後)
+     */
+    public function scheduleCreateScreen(Request $request)
+
+    {
+        $student = Student::find($request->id);
+        $instructors = Instructor::orderBy('created_at', 'asc')->get();
+        $lesson_times = $this->lesson_times;
+        // カレンダーの作成のための情報を取得
+        [$prev, $next, $weeks, $html_title, $thismonth] = $this->createCalender();
+        $param = [
+            'student' => $student,
+            'instructors' => $instructors,
+            'date' => $request->date,
+            'time' => $request->time,
+            'lesson_times' => $lesson_times,
+            'prev' => $prev,
+            'next' => $next,
+            'weeks' => $weeks,
+            'html_title' => $html_title,
+            'thismonth' => $thismonth
+        ];
+        return view('us.scheduleCreate', $param);
+    }
+
+    /**
+     * スケジュール新規登録処理
+     */
+    public function scheduleCreate(Request $request)
+    {
+        $student = Student::find($request->student_id);
+
+        $date = $request->date;
+        $ym = date('Y-m', strtotime($date));
+        $j = date('j', strtotime($date));
+
+        // リダイレクトするURL
+        $url = "http://localhost/schedules/basic/";
+        $url .= $ym;
+        $url .= "/";
+        $url .= $j;
+
+        // スケジュールの登録処理
+        $schedule = new Schedule;
+        $schedule->student_id = $request->student_id;
+        $schedule->instructor_id = $request->instructor_id;
+        $schedule->date = $request->date;
+        $schedule->time = $request->time;
+        $schedule->lesson_type = $student->lesson_type;
+        $schedule->memo = $request->memo;
+        $schedule->save();
+        return redirect($url);
     }
 }

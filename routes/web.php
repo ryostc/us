@@ -63,3 +63,18 @@ Route::get('/schedules/control', 'App\Http\Controllers\UsController@scheduleCont
 
 // スケジュールの管理画面
 Route::get('/schedules/basic/{ym}/{j}', 'App\Http\Controllers\UsController@scheduleBasic');
+
+// スケジュールの新規登録画面(生徒情報を入れる前)
+Route::get('/schedules/register/{date}/{time}', 'App\Http\Controllers\UsController@scheduleRegister');
+
+// スケジュールの新規登録の生徒検索画面
+Route::POST('/schedules/register/search', 'App\Http\Controllers\UsController@scheduleRegisterSearch');
+
+// スケジュールの新規登録の生徒検索処理結果の表示
+Route::POST('/schedules/register/searchResult', 'App\Http\Controllers\UsController@scheduleRegisterSearchResult');
+
+// スケジュールの新規登録画面(生徒情報を入れた後)
+Route::POST('/schedules/register/createScreen', 'App\Http\Controllers\UsController@scheduleCreateScreen');
+
+// スケジュールの新規登録処理
+Route::POST('/schedules/register/create', 'App\Http\Controllers\UsController@scheduleCreate');
