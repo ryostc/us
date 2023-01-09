@@ -32,7 +32,15 @@
         $count++;
         @endphp
         <td><a href={{ $url }}>{{ $lesson_time }}</a></td>
-        <td>{{ $student->firstname }}{{ $student->lastname }}</td>
+        <td>
+            <form action="/schedules/edit/screen" method="POST">
+                @csrf
+                <input type="hidden" name="id" value={{ $schedule->id }}>
+                <button type="submit" class="btn btn-link">
+                    {{$student->firstname }}{{ $student->lastname }}
+                </button>
+            </form>
+        </td>
         <td>{{ $instructor->firstname }}{{ $instructor->lastname }}</td>
         @if ($student->unpaid == "0")
         <td><span class="checkmark"></span></td>
@@ -48,7 +56,15 @@
     @elseif($schedule->time == $lesson_time && $count != 0)
     <tr>
         <td></td>
-        <td>{{ $student->firstname }}{{ $student->lastname }}</td>
+        <td>
+            <form action="/schedules/edit/screen" method="POST">
+                @csrf
+                <input type="hidden" name="id" value={{ $schedule->id }}>
+                <button type="submit" class="btn btn-link">
+                    {{$student->firstname }}{{ $student->lastname }}
+                </button>
+            </form>
+        </td>
         <td>{{ $instructor->firstname }}{{ $instructor->lastname }}</td>
         @if ($student->unpaid == "0")
         <td><span class="checkmark"></span></td>

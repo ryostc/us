@@ -9,8 +9,8 @@
         @csrf
         <input type="hidden" name="date" value={{ $date }}>
         <input type="hidden" name="time" value={{ $time }}>
-        <button type="submit" class="btn btn-primary mb-2">
-            生徒検索へ
+        <button type="submit" class="btn btn-info mb-2">
+            生徒検索へ戻る
         </button>
     </form>
 </div>

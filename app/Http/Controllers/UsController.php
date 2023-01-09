@@ -560,12 +560,22 @@ class UsController extends Controller
      */
     public function scheduleRegister($date, $time)
     {
+        $ym = date('Y-m', strtotime($date));
+        $j = date('j', strtotime($date));
+        // リダイレクトするURL
+        $url = "schedules/basic/";
+        $url .= $ym;
+        $url .= "/";
+        $url .= $j;
+
         $lesson_times = $this->lesson_times;
         // カレンダーの作成のための情報を取得
         [$prev, $next, $weeks, $html_title, $thismonth] = $this->createCalender();
         $param = [
             'date' => $date,
             'lesson_times' => $lesson_times,
+            'ym' => $ym,
+            'j' => $j,
             'time' => $time,
             'prev' => $prev,
             'next' => $next,
@@ -672,7 +682,7 @@ class UsController extends Controller
         $j = date('j', strtotime($date));
 
         // リダイレクトするURL
-        $url = "http://localhost/schedules/basic/";
+        $url = "/schedules/basic/";
         $url .= $ym;
         $url .= "/";
         $url .= $j;
@@ -686,6 +696,89 @@ class UsController extends Controller
         $schedule->lesson_type = $student->lesson_type;
         $schedule->memo = $request->memo;
         $schedule->save();
+        return redirect($url);
+    }
+
+    /**
+     * スケジュール更新画面
+     */
+    public function scheduleEditScreen(Request $request)
+    {
+        $schedule = Schedule::find($request->id);
+        $student = Student::find($schedule->student_id);
+        $instructors = Instructor::orderBy('created_at', 'asc')->get();
+        $lesson_times = $this->lesson_times;
+
+        $date = $schedule->date;
+        $ym = date('Y-m', strtotime($date));
+        $j = date('j', strtotime($date));
+
+        // 前のページへ戻るためのURL
+        $url = "/schedules/basic/";
+        $url .= $ym;
+        $url .= "/";
+        $url .= $j;
+        // カレンダーの作成のための情報を取得
+        [$prev, $next, $weeks, $html_title, $thismonth] = $this->createCalender();
+        $param = [
+            'schedule' => $schedule,
+            'student' => $student,
+            'instructors' => $instructors,
+            'lesson_times' => $lesson_times,
+            'ym' => $ym,
+            'j' => $j,
+            'prev' => $prev,
+            'next' => $next,
+            'weeks' => $weeks,
+            'html_title' => $html_title,
+            'thismonth' => $thismonth
+        ];
+        return view('us.scheduleEdit', $param);
+    }
+
+    /**
+     * スケジュール更新処理
+     */
+    public function scheduleEdit(Request $request)
+    {
+        $date = $request->date;
+        $ym = date('Y-m', strtotime($date));
+        $j = date('j', strtotime($date));
+
+        // リダイレクトするURL
+        $url = "/schedules/basic/";
+        $url .= $ym;
+        $url .= "/";
+        $url .= $j;
+
+        // スケジュールの登録処理
+        $schedule = Schedule::find($request->id);
+        $schedule->instructor_id = $request->instructor_id;
+        $schedule->date = $request->date;
+        $schedule->time = $request->time;
+        $schedule->memo = $request->memo;
+        $schedule->save();
+        return redirect($url);
+    }
+
+    /**
+     * スケジュールの削除
+     *
+     * @param Request $request 削除したいスケジュールのidを保持
+     * @return void
+     */
+    public function scheduleRemove(Request $request)
+    {
+        $date = $request->date;
+        $ym = date('Y-m', strtotime($date));
+        $j = date('j', strtotime($date));
+
+        // リダイレクトするURL
+        $url = "/schedules/basic/";
+        $url .= $ym;
+        $url .= "/";
+        $url .= $j;
+        DB::table('schedules')->where('id', $request->id)->delete();
         return redirect($url);
     }
 }

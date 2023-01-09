@@ -73,5 +73,17 @@
             <td></td>
         </tr>
     </table>
+    <div class="mt-2 col-4 offset-4">
+        <!-- スケジュール新規登録画面(生徒情報なし)へ戻る -->
+        @php
+        $url = "/schedules/basic/";
+        $url .= $ym;
+        $url .= "/";
+        $url .= $j;
+        @endphp
+        <a href={{ $url }} class="btn btn-info rounded">
+            戻る
+        </a>
+    </div>
 </form>
 @endsection
