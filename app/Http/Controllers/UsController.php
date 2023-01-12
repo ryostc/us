@@ -647,10 +647,10 @@ class UsController extends Controller
     /**
      * スケジュール新規登録画面の表示(生徒情報を入れた後)
      */
-    public function scheduleCreateScreen(Request $request)
+    public function scheduleCreateScreen($student_id, $date, $time)
 
     {
-        $student = Student::find($request->id);
+        $student = Student::find($student_id);
         $instructors = Instructor::orderBy('created_at', 'asc')->get();
         $lesson_times = $this->lesson_times;
         // カレンダーの作成のための情報を取得
@@ -658,8 +658,8 @@ class UsController extends Controller
         $param = [
             'student' => $student,
             'instructors' => $instructors,
-            'date' => $request->date,
-            'time' => $request->time,
+            'date' => $date,
+            'time' => $time,
             'lesson_times' => $lesson_times,
             'prev' => $prev,
             'next' => $next,
@@ -702,9 +702,9 @@ class UsController extends Controller
     /**
      * スケジュール更新画面
      */
-    public function scheduleEditScreen(Request $request)
+    public function scheduleEditScreen($schedule_id)
     {
-        $schedule = Schedule::find($request->id);
+        $schedule = Schedule::find($schedule_id);
         $student = Student::find($schedule->student_id);
         $instructors = Instructor::orderBy('created_at', 'asc')->get();
         $lesson_times = $this->lesson_times;
@@ -780,5 +780,21 @@ class UsController extends Controller
         $url .= $j;
         DB::table('schedules')->where('id', $request->id)->delete();
         return redirect($url);
+    }
+
+    /**
+     * 生徒ごとのスケジュールの詳細画面
+     */
+    public function scheduleStudetDetail(Request $request)
+    {
+        $student = Student::find($request->student_id);
+        $personalInstructor = Instructor::find($student->instructor_id);
+        $schedules = DB::table('schedules')->where('student_id', $student->id)->orderBy('date', 'desc');
+        $param = [
+            'student' => $student,
+            'personalInstructor' => $personalInstructor,
+            'schedules' => $schedules
+        ];
+        return view('us.studentScheduleDetailShow', $param);
     }
 }

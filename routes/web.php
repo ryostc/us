@@ -74,16 +74,19 @@ Route::POST('/schedules/register/search', 'App\Http\Controllers\UsController@sch
 Route::POST('/schedules/register/searchResult', 'App\Http\Controllers\UsController@scheduleRegisterSearchResult');
 
 // スケジュールの新規登録画面(生徒情報を入れた後)
-Route::POST('/schedules/register/createScreen', 'App\Http\Controllers\UsController@scheduleCreateScreen');
+Route::GET('/schedules/register/createScreen/{student_id}/{date}/{time}', 'App\Http\Controllers\UsController@scheduleCreateScreen');
 
 // スケジュールの新規登録処理
 Route::POST('/schedules/register/create', 'App\Http\Controllers\UsController@scheduleCreate');
 
 // スケジュールの更新画面
-Route::POST('/schedules/edit/screen', 'App\Http\Controllers\UsController@scheduleEditScreen');
+Route::GET('/schedules/edit/screen/{schedule_id}', 'App\Http\Controllers\UsController@scheduleEditScreen');
 
 // スケジュールの更新処理
 Route::POST('/schedules/edit', 'App\Http\Controllers\UsController@scheduleEdit');
 
 // スケジュールの更新処理
 Route::POST('/schedules/remove', 'App\Http\Controllers\UsController@scheduleRemove');
+
+// 生徒ごとのスケジュールの詳細表示
+Route::POST('/schedules/studentDetail', 'App\Http\Controllers\UsController@scheduleStudetDetail');

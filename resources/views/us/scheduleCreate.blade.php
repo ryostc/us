@@ -103,7 +103,7 @@
         $url = "http://localhost/schedules/register/";
         $url .= $date;
         $url .= "/";
-        $url .= $lesson_time;
+        $url .= $time;
         @endphp
         <a href={{ $url }} class="btn btn-danger rounded" onClick="delete_alert(event);return false;">
             リセット

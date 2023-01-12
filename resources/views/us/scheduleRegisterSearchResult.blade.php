@@ -28,15 +28,9 @@
         <tr>
             <!-- 生徒の名前 -->
             <td>
-                <form action="/schedules/register/createScreen" method="POST">
-                    @csrf
-                    <input type="hidden" name="id" value={{ $student->id }}>
-                    <input type="hidden" name="date" value={{ $date }}>
-                    <input type="hidden" name="time" value={{ $time }}>
-                    <button type="submit" class="btn btn-link">
-                        {{$student->firstname }}{{ $student->lastname }}
-                    </button>
-                </form>
+                <a href="/schedules/register/createScreen/{{ $student->id }}/{{ $date }}/{{ $time }}">
+                    {{$student->firstname }}{{ $student->lastname }}
+                </a>
             </td>
 
             <td>

@@ -33,13 +33,9 @@
         @endphp
         <td><a href={{ $url }}>{{ $lesson_time }}</a></td>
         <td>
-            <form action="/schedules/edit/screen" method="POST">
-                @csrf
-                <input type="hidden" name="id" value={{ $schedule->id }}>
-                <button type="submit" class="btn btn-link">
-                    {{$student->firstname }}{{ $student->lastname }}
-                </button>
-            </form>
+            <a href="/schedules/edit/screen/{{ $schedule->id }}">
+                {{$student->firstname }}{{ $student->lastname }}
+            </a>
         </td>
         <td>{{ $instructor->firstname }}{{ $instructor->lastname }}</td>
         @if ($student->unpaid == "0")
@@ -57,13 +53,9 @@
     <tr>
         <td></td>
         <td>
-            <form action="/schedules/edit/screen" method="POST">
-                @csrf
-                <input type="hidden" name="id" value={{ $schedule->id }}>
-                <button type="submit" class="btn btn-link">
-                    {{$student->firstname }}{{ $student->lastname }}
-                </button>
-            </form>
+            <a href="/schedules/edit/screen/{{ $schedule->id }}">
+                {{$student->firstname }}{{ $student->lastname }}
+            </a>
         </td>
         <td>{{ $instructor->firstname }}{{ $instructor->lastname }}</td>
         @if ($student->unpaid == "0")
