@@ -752,7 +752,7 @@ class UsController extends Controller
         $url .= $j;
 
         // スケジュールの登録処理
-        $schedule = Schedule::find($request->id);
+        $schedule = Schedule::find($request->schedule_id);
         $schedule->instructor_id = $request->instructor_id;
         $schedule->date = $request->date;
         $schedule->time = $request->time;
@@ -783,18 +783,44 @@ class UsController extends Controller
     }
 
     /**
-     * 生徒ごとのスケジュールの詳細画面
+     * 生徒ごとのスケジュールの詳細画面(新規登録からの遷移)
      */
-    public function scheduleStudetDetail(Request $request)
+    public function scheduleStudetDetail1(Request $request)
     {
         $student = Student::find($request->student_id);
         $personalInstructor = Instructor::find($student->instructor_id);
-        $schedules = DB::table('schedules')->where('student_id', $student->id)->orderBy('date', 'desc');
+        $schedules = DB::table('schedules')->where('student_id', $student->id)->orderBy('date', 'desc')->get();
+        $instructors = Instructor::orderBy('created_at', 'asc')->get();
+        $date = $request->date;
+        $time = $request->time;
         $param = [
             'student' => $student,
             'personalInstructor' => $personalInstructor,
-            'schedules' => $schedules
+            'instructors' => $instructors,
+            'schedules' => $schedules,
+            'date' => $date,
+            'time' => $time
         ];
-        return view('us.studentScheduleDetailShow', $param);
+        return view('us.studentScheduleDetailShow1', $param);
+    }
+
+    /**
+     * 生徒ごとのスケジュールの詳細画面(更新からの遷移)
+     */
+    public function scheduleStudetDetail2(Request $request)
+    {
+        $nowScheduleId = $request->schedule_id;
+        $student = Student::find($request->student_id);
+        $personalInstructor = Instructor::find($student->instructor_id);
+        $schedules = DB::table('schedules')->where('student_id', $student->id)->orderBy('date', 'desc')->get();
+        $instructors = Instructor::orderBy('created_at', 'asc')->get();
+        $param = [
+            'student' => $student,
+            'personalInstructor' => $personalInstructor,
+            'instructors' => $instructors,
+            'schedules' => $schedules,
+            'nowScheduleId' => $nowScheduleId
+        ];
+        return view('us.studentScheduleDetailShow2', $param);
     }
 }

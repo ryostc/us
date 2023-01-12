@@ -88,5 +88,8 @@ Route::POST('/schedules/edit', 'App\Http\Controllers\UsController@scheduleEdit')
 // スケジュールの更新処理
 Route::POST('/schedules/remove', 'App\Http\Controllers\UsController@scheduleRemove');
 
-// 生徒ごとのスケジュールの詳細表示
-Route::POST('/schedules/studentDetail', 'App\Http\Controllers\UsController@scheduleStudetDetail');
+// 生徒ごとのスケジュールの詳細表示(新規登録からの遷移)
+Route::POST('/schedules/studentDetail1', 'App\Http\Controllers\UsController@scheduleStudetDetail1');
+
+// 生徒ごとのスケジュールの詳細表示(更新からの遷移)
+Route::POST('/schedules/studentDetail2', 'App\Http\Controllers\UsController@scheduleStudetDetail2');

@@ -3,7 +3,7 @@
 @section('title', 'スケジュール新規登録')
 
 @section('content')
-<form action="/schedules/register/create" method="POST">
+<form method="POST">
     @csrf
     <input type="hidden" name="student_id" value={{ $student->id }}>
     <table class="table-sm border">
@@ -19,8 +19,8 @@
             <td>フリガナ</td>
             <td>{{ $student->firstname_ruby }}{{ $student->lastname_ruby }}</td>
             <td>
-                <button type="submit" class="btn btn-info">
-                    詳細(未実装)
+                <button formaction="/schedules/studentDetail1" type="submit" class="btn btn-info">
+                    詳細へ
                 </button>
             </td>
         </tr>
@@ -94,7 +94,7 @@
 
     <div class="btn-group mt-2 col-3 offset-5">
         <!-- スケジュール: 新規登録ボタン -->
-        <button type="submit" class="btn btn-primary rounded mr-1">
+        <button formaction="/schedules/register/create" type="submit" class="btn btn-primary rounded mr-1">
             登録
         </button>
 

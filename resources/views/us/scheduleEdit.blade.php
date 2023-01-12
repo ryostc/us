@@ -5,7 +5,8 @@
 @section('content')
 <form method="POST">
     @csrf
-    <input type="hidden" name="id" value={{ $schedule->id }}>
+    <input type="hidden" name="schedule_id" value={{ $schedule->id }}>
+    <input type="hidden" name="student_id" value={{ $schedule->student_id }}>
     <table class="table-sm border">
         <tr>
             <td>生徒ID</td>
@@ -19,8 +20,8 @@
             <td>フリガナ</td>
             <td>{{ $student->firstname_ruby }}{{ $student->lastname_ruby }}</td>
             <td>
-                <button type="submit" class="btn btn-info">
-                    詳細(未実装)
+                <button formaction="/schedules/studentDetail2" type="submit" class="btn btn-info">
+                    詳細へ
                 </button>
             </td>
         </tr>
