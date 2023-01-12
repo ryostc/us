@@ -139,8 +139,13 @@
         <div class="form-row">
             <div class="form-group col-6">
                 <label for="comment_label" class="col-form-label">コメント</label>
+                @if ($student->comment == null)
+                <textarea id="comment_label" class="form-control" name="comment" autocomplete="off" row="2" cols="40"
+                    rows="2"></textarea>
+                @else
                 <textarea id="comment_label" class="form-control" name="comment" autocomplete="off" row="2"
                     value="{{ $student->comment }}" cols="40" rows="2">{{ $student->comment }}</textarea>
+                @endif
             </div>
         </div>
     </fieldset>
@@ -314,7 +319,7 @@
                 <label for="address_building_label" class="col-form-label">番地・建物名等</label>
                 @if ($student->address_building == null)
                 <input type="text" id="address_building_label" class="form-control" name="address_building"
-                    autocomplete="off" size="40" value="記入なし">
+                    autocomplete="off" size="40">
                 @else
                 <input type="text" id="address_building_label" class="form-control" name="address_building"
                     autocomplete="off" size="40" value="{{ $student->address_building }}">

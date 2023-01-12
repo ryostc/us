@@ -100,7 +100,7 @@
             <div class="form-group col-6">
                 <label for="comment_label" class="col-form-label">コメント</label>
                 <textarea id="comment_label" class="form-control" name="comment" autocomplete="off"
-                    value="{{ old('comment') }}" cols="40" rows="2">コメントエリア</textarea>
+                    value="{{ old('comment') }}" cols="40" rows="2"></textarea>
             </div>
         </div>
     </fieldset>

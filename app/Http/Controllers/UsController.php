@@ -286,14 +286,13 @@ class UsController extends Controller
             'address_building' => 'max:50',
             'phonenumber' => 'required|max:50',
             'email' => 'required|email',
-            'comment' => 'required|max:300',
+            'comment' => 'max:300',
             'instructor_id' => 'required',
             'terms_payment' => 'required',
             'unpaid' => 'required',
             'status' => 'required|max:50',
             'lesson_type' => 'required|max:50',
             'pair_id' => 'max:50',
-            'enrollment_date' => 'required',
         ]);
 
         // インストラクターのバリデーションエラー処理
@@ -374,7 +373,14 @@ class UsController extends Controller
         $pair_student = Student::find($student->pair_id);
         $statuses = $this->statuses;
         $lesson_types = $this->lesson_types;
-        $param = ['student' => $student, 'pair_student' => $pair_student, 'personalInstructor' => $personalInstructor, 'instructors' => $instructors, 'statuses' => $statuses, 'lesson_types' => $lesson_types];
+        $param = [
+            'student' => $student,
+            'pair_student' => $pair_student,
+            'personalInstructor' => $personalInstructor,
+            'instructors' => $instructors,
+            'statuses' => $statuses,
+            'lesson_types' => $lesson_types
+        ];
         return view('us.studentEdit', $param);
     }
 
@@ -405,14 +411,13 @@ class UsController extends Controller
             'address_building' => 'max:50',
             'phonenumber' => 'required|max:50',
             'email' => 'required|email',
-            'comment' => 'required|max:300',
+            'comment' => 'max:300',
             'instructor_id' => 'required',
             'terms_payment' => 'required',
             'unpaid' => 'required',
             'status' => 'required|max:50',
             'lesson_type' => 'required|max:50',
             'pair_id' => 'max:50',
-            'enrollment_date' => 'required',
         ]);
 
         // 生徒のバリデーションエラー処理

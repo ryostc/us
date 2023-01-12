@@ -84,7 +84,7 @@
     <div class="row ml-1">
         <div class="col-6">
             <label for="comment" class="lead">コメント</label>
-            @if ($student->comment == "コメントエリア")
+            @if ($student->comment == null)
             <p class='ml-2'>なし</p>
             @else
             <p class='ml-2'>{{ $student->comment }}</p>
