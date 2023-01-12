@@ -49,7 +49,11 @@
             </tr>
             <tr>
                 <th>コメント</th>
+                @if ($student->comment != null)
                 <td colspan="3">{{ $student->comment }}</td>
+                @else
+                <td colspan="3"></td>
+                @endif
             </tr>
         </table>
         <table class="table border">
