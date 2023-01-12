@@ -45,6 +45,19 @@ class UsController extends Controller
         '22:00'
     ];
 
+    /**
+     * 在籍生徒数をカウントするメソッド
+     *
+     * @return 在籍生徒数
+     */
+    public function countEnrolledStudents()
+    {
+        $count = 0;
+        $enrolledStudents = DB::table('students')->where('status', '入校')->get();
+        $count = $enrolledStudents->count();
+        return $count;
+    }
+
     private function createCalender()
     {
         // タイムゾーンを設定
@@ -517,8 +530,19 @@ class UsController extends Controller
      */
     public function scheduleControl()
     {
+        // 在籍生徒数を表示するための情報を取得
+        $enrolledStudentCount = $this->countEnrolledStudents();
+
+        // カレンダーの作成のための情報を取得
         [$prev, $next, $weeks, $html_title, $thismonth] = $this->createCalender();
-        $param = ['prev' => $prev, 'next' => $next, 'weeks' => $weeks, 'html_title' => $html_title, 'thismonth' => $thismonth];
+        $param = [
+            'prev' => $prev,
+            'next' => $next,
+            'weeks' => $weeks,
+            'html_title' => $html_title,
+            'thismonth' => $thismonth,
+            'enrolledStudentCount' => $enrolledStudentCount
+        ];
         return view('us.scheduleControl', $param);
     }
 
@@ -541,6 +565,10 @@ class UsController extends Controller
         $schedules = DB::table('schedules')
             ->where('date', $date)
             ->get();
+
+        // 在籍生徒数を表示するための情報を取得
+        $enrolledStudentCount = $this->countEnrolledStudents();
+
         // カレンダーの作成のための情報を取得
         [$prev, $next, $weeks, $html_title, $thismonth] = $this->createCalender();
 
@@ -555,7 +583,8 @@ class UsController extends Controller
             'next' => $next,
             'weeks' => $weeks,
             'html_title' => $html_title,
-            'thismonth' => $thismonth
+            'thismonth' => $thismonth,
+            'enrolledStudentCount' => $enrolledStudentCount
         ];
         return view('us.scheduleBasic', $param);
     }
@@ -574,6 +603,9 @@ class UsController extends Controller
         $url .= $j;
 
         $lesson_times = $this->lesson_times;
+
+        // 在籍生徒数を表示するための情報を取得
+        $enrolledStudentCount = $this->countEnrolledStudents();
         // カレンダーの作成のための情報を取得
         [$prev, $next, $weeks, $html_title, $thismonth] = $this->createCalender();
         $param = [
@@ -586,7 +618,8 @@ class UsController extends Controller
             'next' => $next,
             'weeks' => $weeks,
             'html_title' => $html_title,
-            'thismonth' => $thismonth
+            'thismonth' => $thismonth,
+            'enrolledStudentCount' => $enrolledStudentCount
         ];
         return view('us.scheduleRegister', $param);
     }
@@ -596,6 +629,8 @@ class UsController extends Controller
      */
     public function scheduleRegisterSearch(Request $request)
     {
+        // 在籍生徒数を表示するための情報を取得
+        $enrolledStudentCount = $this->countEnrolledStudents();
         // カレンダーの作成のための情報を取得
         [$prev, $next, $weeks, $html_title, $thismonth] = $this->createCalender();
         $param = [
@@ -607,7 +642,8 @@ class UsController extends Controller
             'next' => $next,
             'weeks' => $weeks,
             'html_title' => $html_title,
-            'thismonth' => $thismonth
+            'thismonth' => $thismonth,
+            'enrolledStudentCount' => $enrolledStudentCount
         ];
         return view('us.scheduleRegisterSearch', $param);
     }
@@ -631,6 +667,8 @@ class UsController extends Controller
 
         $instructors = Instructor::orderBy('created_at', 'asc')->get();
 
+        // 在籍生徒数を表示するための情報を取得
+        $enrolledStudentCount = $this->countEnrolledStudents();
         // カレンダーの作成のための情報を取得
         [$prev, $next, $weeks, $html_title, $thismonth] = $this->createCalender();
         $param = [
@@ -644,7 +682,8 @@ class UsController extends Controller
             'next' => $next,
             'weeks' => $weeks,
             'html_title' => $html_title,
-            'thismonth' => $thismonth
+            'thismonth' => $thismonth,
+            'enrolledStudentCount' => $enrolledStudentCount
         ];
         return view('us.scheduleRegisterSearchResult', $param);
     }
@@ -658,6 +697,8 @@ class UsController extends Controller
         $student = Student::find($student_id);
         $instructors = Instructor::orderBy('created_at', 'asc')->get();
         $lesson_times = $this->lesson_times;
+        // 在籍生徒数を表示するための情報を取得
+        $enrolledStudentCount = $this->countEnrolledStudents();
         // カレンダーの作成のための情報を取得
         [$prev, $next, $weeks, $html_title, $thismonth] = $this->createCalender();
         $param = [
@@ -670,7 +711,8 @@ class UsController extends Controller
             'next' => $next,
             'weeks' => $weeks,
             'html_title' => $html_title,
-            'thismonth' => $thismonth
+            'thismonth' => $thismonth,
+            'enrolledStudentCount' => $enrolledStudentCount
         ];
         return view('us.scheduleCreate', $param);
     }
@@ -723,6 +765,8 @@ class UsController extends Controller
         $url .= $ym;
         $url .= "/";
         $url .= $j;
+        // 在籍生徒数を表示するための情報を取得
+        $enrolledStudentCount = $this->countEnrolledStudents();
         // カレンダーの作成のための情報を取得
         [$prev, $next, $weeks, $html_title, $thismonth] = $this->createCalender();
         $param = [
@@ -736,7 +780,8 @@ class UsController extends Controller
             'next' => $next,
             'weeks' => $weeks,
             'html_title' => $html_title,
-            'thismonth' => $thismonth
+            'thismonth' => $thismonth,
+            'enrolledStudentCount' => $enrolledStudentCount
         ];
         return view('us.scheduleEdit', $param);
     }
