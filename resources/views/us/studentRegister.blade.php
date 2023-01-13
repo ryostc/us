@@ -11,13 +11,13 @@
         <div class="form-row">
             <div class="form-group col-6">
                 <label for="firstname_label" class="col-form-label">性</label>
-                <input type="text" id="firstname_label" class="form-control" name="firstname" autocomplete="off"
+                <input type="text" id="firstname_label" class="form-control" name="firstname" autocomplete="off" maxlength="50"
                     value="{{ old('firstname') }}">
             </div>
 
             <div class="form-group col-6">
                 <label for="lastname_label" class="col-form-label">名</label>
-                <input type="text" id="lastname_label" class="form-control" name="lastname" autocomplete="off"
+                <input type="text" id="lastname_label" class="form-control" name="lastname" autocomplete="off" maxlength="50"
                     value="{{ old('lastname') }}">
             </div>
         </div>
@@ -25,12 +25,12 @@
             <div class="form-group col-6">
                 <label for="firstname_ruby_label" class="col-form-label">性(フリガナ)</label>
                 <input type="text" id="firstname_ruby_label" class="form-control" name="firstname_ruby"
-                    autocomplete="off" value="{{ old('firstname_ruby') }}">
+                    autocomplete="off" maxlength="50" value="{{ old('firstname_ruby') }}">
             </div>
 
             <div class="form-group col-6">
                 <label for="lastname_ruby_label" class="col-form-label">名(フリガナ)</label>
-                <input type="text" id="lastname_ruby_label" class="form-control" name="lastname_ruby" autocomplete="off"
+                <input type="text" id="lastname_ruby_label" class="form-control" name="lastname_ruby" autocomplete="off" maxlength="50"
                     value="{{ old('lastname_ruby') }}">
             </div>
         </div>
@@ -65,33 +65,33 @@
             <div class="form-group col-6">
                 <label for="guardian_firstname_label" class="col-form-label">保護者 性</label>
                 <input type="text" id="guardian_firstname_label" class="form-control" name="guardian_firstname"
-                    autocomplete="off" value="{{ old('guardian_firstname') }}">
+                    autocomplete="off" maxlength="50" value="{{ old('guardian_firstname') }}">
             </div>
 
             <div class="form-group col-6">
                 <label for="guardian_lastname_label" class="col-form-label">保護者 名</label>
                 <input type="text" id="guardian_lastname_label" class="form-control" name="guardian_lastname"
-                    autocomplete="off" value="{{ old('guardian_lastname') }}">
+                    autocomplete="off" maxlength="50" value="{{ old('guardian_lastname') }}">
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-6">
                 <label for="guardian_firstname_ruby_label" class="col-form-label">保護者 性(フリガナ)</label>
                 <input type="text" id="guardian_firstname_ruby_label" class="form-control"
-                    name="guardian_firstname_ruby" autocomplete="off" value="{{ old('guardian_firstname_ruby') }}">
+                    name="guardian_firstname_ruby" autocomplete="off" maxlength="50" value="{{ old('guardian_firstname_ruby') }}">
             </div>
 
             <div class="form-group col-6">
                 <label for="guardian_lastname_ruby_label" class="col-form-label">保護者 名(フリガナ)</label>
                 <input type="text" id="guardian_lastname_ruby_label" class="form-control" name="guardian_lastname_ruby"
-                    autocomplete="off" value="{{ old('guardian_lastname_ruby') }}">
+                    autocomplete="off" maxlength="50" value="{{ old('guardian_lastname_ruby') }}">
             </div>
         </div>
 
         <div class="form-row">
             <div class="form-group col-6">
                 <label for="relationship_label" class="col-form-label">続柄</label>
-                <input type="text" id="relationship_label" class="form-control" name="relationship" autocomplete="off"
+                <input type="text" id="relationship_label" class="form-control" name="relationship" autocomplete="off" maxlength="30"
                     value="{{ old('relationship') }}">
             </div>
         </div>
@@ -99,7 +99,7 @@
         <div class="form-row">
             <div class="form-group col-6">
                 <label for="comment_label" class="col-form-label">コメント</label>
-                <textarea id="comment_label" class="form-control" name="comment" autocomplete="off"
+                <textarea id="comment_label" class="form-control" name="comment" autocomplete="off" maxlength="300"
                     value="{{ old('comment') }}" cols="40" rows="2"></textarea>
             </div>
         </div>
@@ -204,7 +204,7 @@
             <div class="form-group col-6">
                 <label for="prefectures_label" class="col-form-label">都道府県</label>
                 <input type="text" id="prefectures_label" class="form-control" name="prefectures" autocomplete="off"
-                    size="40" value="{{ old('prefectures') }}">
+                    size="40" maxlength="50" value="{{ old('prefectures') }}">
             </div>
         </div>
 
@@ -212,7 +212,7 @@
             <div class="form-group col-6">
                 <label for="municipalities_label" class="col-form-label">市区町村</label>
                 <input type="text" id="municipalities_label" class="form-control" name="municipalities"
-                    autocomplete="off" size="40" value="{{ old('municipalities') }}">
+                    autocomplete="off" maxlength="50" size="40" value="{{ old('municipalities') }}">
             </div>
         </div>
 
@@ -220,7 +220,7 @@
             <div class="form-group col-6">
                 <label for="address_building_label" class="col-form-label">番地・建物名等</label>
                 <input type="text" id="address_building_label" class="form-control" name="address_building"
-                    autocomplete="off" size="40" value="{{ old('address_building') }}">
+                    autocomplete="off" maxlength="200" size="40" value="{{ old('address_building') }}">
             </div>
         </div>
     </fieldset>
@@ -231,7 +231,7 @@
             <div class="form-group col-6">
                 <label for="phonenumber_label" class="col-form-label">電話番号</label>
                 <input type="tel" id="phonenumber_label" class="form-control" name="phonenumber" autocomplete="off"
-                    size="15" maxlength="15" pattern="[\d]*" aria-describedby="phonenumberHint"
+                    size="15" maxlength="20" pattern="[\d]*" aria-describedby="phonenumberHint"
                     value="{{ old('phonenumber') }}">
                 <small id="phonenumberHint">ハイフンなしで入力してください</small>
             </div>

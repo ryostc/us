@@ -45,6 +45,95 @@ class UsController extends Controller
         '22:00'
     ];
 
+    // インストラクターのバリデーションルール
+    private $instructorValidationRules = [
+        'firstname' => 'required|max:50',
+        'lastname' => 'required|max:50',
+        'firstname_ruby' => 'required|max:50',
+        'lastname_ruby' => 'required|max:50',
+        'enrollment_date' => 'required|date',
+    ];
+
+    // インストラクターのバリデーションメッセージ
+    private $instructorValidationMessages = [
+        'firstname.required' => '性は必ず入力して下さい',
+        'firstname.max' => '性は50文字以下で入力して下さい',
+        'lastname.required' => '名は必ず入力して下さい',
+        'lastname.max' => '名は50文字以下で入力して下さい',
+        'firstname_ruby.required' => '性(フリガナ)は必ず入力して下さい',
+        'firstname_ruby.max' => '性(フリガナ)は50文字以下で入力して下さい',
+        'lastname_ruby.required' => '名(フリガナ)は必ず入力して下さい',
+        'lastname_ruby.max' => '名(フリガナ)は50文字以下で入力して下さい',
+        'enrollment_date.required' => '入校日は必ず入力して下さい',
+        'enrollment_date.date' => '入校日はdate型で入力して下さい',
+    ];
+
+    // 生徒のバリデーションルール
+    private $studentValidationRules = [
+        'firstname' => 'required|max:50',
+        'lastname' => 'required|max:50',
+        'firstname_ruby' => 'required|max:50',
+        'lastname_ruby' => 'required|max:50',
+        'sex' => 'required',
+        'birthdate' => 'required',
+        'guardian_firstname' => 'max:50',
+        'guardian_lastname' => 'max:50',
+        'guardian_firstname_ruby' => 'max:50',
+        'guardian_lastname_ruby' => 'max:50',
+        'relationship' => 'max:30',
+        'postcode' => 'required|max:8',
+        'prefectures' => 'required|max:50',
+        'municipalities' => 'required|max:50',
+        'address_building' => 'max:200',
+        'phonenumber' => 'required|max:20',
+        'email' => 'required|email',
+        'comment' => 'max:300',
+        'instructor_id' => 'required',
+        'terms_payment' => 'required',
+        'unpaid' => 'required',
+        'status' => 'required',
+        'lesson_type' => 'required',
+        'pair_id' => 'max:50',
+    ];
+
+    // 生徒のバリデーションメッセージ
+    private $studentValidationMessages = [
+        'firstname.required' => '性は必ず入力して下さい',
+        'firstname.max' => '性は50文字以下で入力して下さい',
+        'lastname.required' => '名は必ず入力して下さい',
+        'lastname.max' => '名は50文字以下で入力して下さい',
+        'firstname_ruby.required' => '性(フリガナ)は必ず入力して下さい',
+        'firstname_ruby.max' => '性(フリガナ)は50文字以下で入力して下さい',
+        'lastname_ruby.required' => '名(フリガナ)は必ず入力して下さい',
+        'lastname_ruby.max' => '名(フリガナ)は50文字以下で入力して下さい',
+        'sex.required' => '性別は必ず入力して下さい',
+        'birthdate.required' => '誕生日は必ず入力して下さい',
+        'guardian_firstname.max' => '保護者 性は50文字以下で入力して下さい',
+        'guardian_lastname.max' => '保護者 名は50文字以下で入力して下さい',
+        'guardian_firstname_ruby.max' => '保護者 性(フリガナ)は50文字以下で入力して下さい',
+        'guardian_lastname_ruby.max' => '保護者 名(フリガナ)は50文字以下で入力して下さい',
+        'relationship.max' => '続柄は50文字以下で入力して下さい',
+        'postcode.required' => '郵便番号は必ず入力して下さい',
+        'postcode.max' => '郵便番号は8文字以下で入力して下さい',
+        'prefectures.required' => '都道府県は必ず入力して下さい',
+        'prefectures.max' => '都道府県は50文字以下で入力して下さい',
+        'municipalities.required' => '市区町村は必ず入力して下さい',
+        'municipalities.max' => '市区町村は50文字以下で入力して下さい',
+        'address_building.max' => '番地・建物名等は200文字以下で入力して下さい',
+        'phonenumber.required' => '電話番号は必ず入力して下さい',
+        'phonenumber.max' => '電話番号は20文字以下で入力して下さい',
+        'email.required' => 'メールアドレスは必ず入力して下さい',
+        'email.email' => 'メールアドレスはemail形式で入力して下さい',
+        'comment.max' => 'コメントは300文字以下で入力して下さい',
+        'instructor_id.required' => '担当インストラクターは必ず入力して下さい',
+        'terms_payment.required' => '支払い方法は必ず入力して下さい',
+        'unpaid.required' => '未払いは必ず入力して下さい',
+        'status.required' => 'ステータスは必ず入力して下さい',
+        'lesson_type.required' => 'レッスンタイプは必ず入力して下さい',
+        'pair_id.required' => 'ペアのidは必ず入力して下さい(ペアを設定しない場合は-1を入力して下さい)',
+        'pair_id.max' => 'ペアのidは50文字以下で入力して下さい',
+    ];
+
     /**
      * 在籍生徒数をカウントするメソッド
      *
@@ -153,14 +242,11 @@ class UsController extends Controller
      */
     public function instructorCreate(Request $request)
     {
+        $rules = $this->instructorValidationRules;
+        $messages = $this->instructorValidationMessages;
+
         // インストラクターのバリデーション処理
-        $validator = Validator::make($request->all(), [
-            'firstname' => 'required|max:50',
-            'lastname' => 'required|max:50',
-            'firstname_ruby' => 'required|max:50',
-            'lastname_ruby' => 'required|max:50',
-            'enrollment_date' => 'required|date',
-        ]);
+        $validator = Validator::make($request->all(), $rules, $messages);
 
         // インストラクターのバリデーションエラー処理
         if ($validator->fails()) {
@@ -221,15 +307,11 @@ class UsController extends Controller
      */
     public function instructorUpdate(Request $request)
     {
+        $rules = $this->instructorValidationRules;
+        $messages = $this->instructorValidationMessages;
+
         // インストラクターのバリデーション処理
-        $validator = Validator::make($request->all(), [
-            'id' => 'required',
-            'firstname' => 'required|max:50',
-            'lastname' => 'required|max:50',
-            'firstname_ruby' => 'required|max:50',
-            'lastname_ruby' => 'required|max:50',
-            'enrollment_date' => 'required|date',
-        ]);
+        $validator = Validator::make($request->all(), $rules, $messages);
 
         // インストラクターのバリデーションエラー処理
         if ($validator->fails()) {
@@ -280,42 +362,20 @@ class UsController extends Controller
      */
     public function studentCreate(Request $request)
     {
-        // インストラクターのバリデーション処理
-        $validator = Validator::make($request->all(), [
-            'firstname' => 'required|max:50',
-            'lastname' => 'required|max:50',
-            'firstname_ruby' => 'required|max:50',
-            'lastname_ruby' => 'required|max:50',
-            'sex' => 'required',
-            'birthdate' => 'required|max:50',
-            'guardian_firstname' => 'max:50',
-            'guardian_lastname' => 'max:50',
-            'guardian_firstname_ruby' => 'max:50',
-            'guardian_lastname_ruby' => 'max:50',
-            'relationship' => 'max:30',
-            'postcode' => 'required|max:10',
-            'prefectures' => 'required|max:50',
-            'municipalities' => 'required|max:50',
-            'address_building' => 'max:50',
-            'phonenumber' => 'required|max:50',
-            'email' => 'required|email',
-            'comment' => 'max:300',
-            'instructor_id' => 'required',
-            'terms_payment' => 'required',
-            'unpaid' => 'required',
-            'status' => 'required|max:50',
-            'lesson_type' => 'required|max:50',
-            'pair_id' => 'max:50',
-        ]);
+        $rules = $this->studentValidationRules;
+        $messages = $this->studentValidationMessages;
 
-        // インストラクターのバリデーションエラー処理
+        // 生徒のバリデーション処理
+        $validator = Validator::make($request->all(), $rules, $messages);
+
+        // 生徒のバリデーションエラー処理
         if ($validator->fails()) {
             return redirect('/students/register')
                 ->withInput()
                 ->withErrors($validator);
         }
 
-        // インストラクターの登録処理
+        // 生徒の登録処理
         $students = new Student;
         $students->firstname = $request->firstname;
         $students->lastname = $request->lastname;
@@ -405,33 +465,13 @@ class UsController extends Controller
      */
     public function studentUpdate(Request $request)
     {
+        $rules = $this->studentValidationRules;
+        $rules = array_merge($rules, array('pair_id' => 'required'));
+
+        $messages = $this->studentValidationMessages;
+
         // 生徒のバリデーション処理
-        $validator = Validator::make($request->all(), [
-            'firstname' => 'required|max:50',
-            'lastname' => 'required|max:50',
-            'firstname_ruby' => 'required|max:50',
-            'lastname_ruby' => 'required|max:50',
-            'sex' => 'required',
-            'birthdate' => 'required|max:50',
-            'guardian_firstname' => 'max:50',
-            'guardian_lastname' => 'max:50',
-            'guardian_firstname_ruby' => 'max:50',
-            'guardian_lastname_ruby' => 'max:50',
-            'relationship' => 'max:30',
-            'postcode' => 'required|max:10',
-            'prefectures' => 'required|max:50',
-            'municipalities' => 'required|max:50',
-            'address_building' => 'max:50',
-            'phonenumber' => 'required|max:50',
-            'email' => 'required|email',
-            'comment' => 'max:300',
-            'instructor_id' => 'required',
-            'terms_payment' => 'required',
-            'unpaid' => 'required',
-            'status' => 'required|max:50',
-            'lesson_type' => 'required|max:50',
-            'pair_id' => 'max:50',
-        ]);
+        $validator = Validator::make($request->all(), $rules, $messages);
 
         // 生徒のバリデーションエラー処理
         if ($validator->fails()) {
