@@ -458,6 +458,91 @@ class UsController extends Controller
     }
 
     /**
+     * ペア生徒の検索画面
+     */
+    public function pairStudentSearchScreen(Request $request)
+    {
+        $statuses = $this->statuses;
+        $lesson_types = $this->lesson_types;
+        $param = [
+            'statuses' => $statuses,
+            'lesson_types' => $lesson_types,
+            'student_id' => $request->id,
+        ];
+        return view('us.pairStudentSearch', $param);
+    }
+
+    /**
+     * ペア生徒の検索処理
+     */
+    public function pairStudentSearch(Request $request)
+    {
+        $students = DB::table('students')
+            ->where('firstname', 'like', '%' . $request->firstname . '%')
+            ->where('lastname', 'like', '%' . $request->lastname . '%')
+            ->where('firstname_ruby', 'like', '%' . $request->firstname_ruby . '%')
+            ->where('lastname_ruby', 'like', '%' . $request->lastname_ruby . '%')
+            ->where('phonenumber', 'like', '%' . $request->phonenumber . '%')
+            ->where('email', 'like', '%' . $request->email . '%')
+            ->where('status', 'like', '%' . $request->status . '%')
+            ->where('lesson_type', 'like', '%' . $request->lesson_type . '%')
+            ->where('unpaid', 'like', '%' . $request->unpaid . '%')
+            ->get();
+        $instructors = Instructor::orderBy('created_at', 'asc')->get();
+        $param = [
+            'students' => $students,
+            'instructors' => $instructors,
+            'student_id' => $request->student_id
+        ];
+        return view('us.pairStudentSearchResult', $param);
+    }
+
+    /**
+     * ペア生徒の編集画面表示
+     *
+     * @param Student $student 編集したい生徒の個人情報
+     * @return void
+     */
+    public function pairStudentEdit(Request $request)
+    {
+        $student = Student::find($request->id);
+        $personalInstructor = Instructor::find($student->instructor_id);
+        $instructors = Instructor::orderBy('created_at', 'asc')->get();
+        $pair_student = Student::find($request->pairStudent_id);
+        $statuses = $this->statuses;
+        $lesson_types = $this->lesson_types;
+        $param = [
+            'student' => $student,
+            'pair_student' => $pair_student,
+            'personalInstructor' => $personalInstructor,
+            'instructors' => $instructors,
+            'statuses' => $statuses,
+            'lesson_types' => $lesson_types
+        ];
+        return view('us.pairStudentEdit', $param);
+    }
+
+    /**
+     * ペア登録の削除
+     */
+    public function pairStudentRemove(Request $request)
+    {
+        if ($request->pair_id != -1) {
+            $pariStudent = Student::find($request->pair_id);
+            $pariStudent->pair_id = -1;
+            $pariStudent->save();
+            $students = Student::find($request->id);
+            $students->pair_id = -1;
+            $students->save();
+        }
+
+        // リダイレクトするURL
+        $url = '/students/control';
+
+        return redirect($url);
+    }
+
+    /**
      * 生徒の編集処理
      *
      * @param Request $request 入力された編集したい生徒の個人情報
@@ -479,6 +564,13 @@ class UsController extends Controller
                 ->withInput()
                 ->withErrors($validator);
         }
+
+        if ($request->pair_id != -1) {
+            $pariStudent = Student::find($request->pair_id);
+            $pariStudent->pair_id = $request->id;
+            $pariStudent->save();
+        }
+
 
         // 更新処理
         $students = Student::find($request->id);

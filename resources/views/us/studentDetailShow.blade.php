@@ -136,10 +136,6 @@
 
     <div class="row ml-1">
         <div class="col-6">
-            <label for="pair_id" class="lead">ペアのid</label>
-            <p class="ml-2">{{ $student->pair_id }}</p>
-        </div>
-        <div class="col-6">
             <label for="pair_name" class="lead">ペアの名前</label>
             @if ($student->pair_id != -1)
             <p class='ml-2'>{{ $pair_student->firstname }}{{ $pair_student->lastname }}</p>

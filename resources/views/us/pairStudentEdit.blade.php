@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', '生徒編集')
+@section('title', 'ペア生徒編集')
 
 @section('content')
 @include('common.errors')
@@ -15,7 +15,8 @@
                 ペア生徒の検索
             </button>
 
-            <button formaction="/pairstudent/remove" type="submit" class="btn btn-danger rounded" onClick="delete_alert(event);return false;">
+            <button formaction="/pairstudent/remove" type="submit" class="btn btn-danger rounded"
+                onClick="delete_alert(event);return false;">
                 ペア登録の削除
             </button>
         </div>
@@ -237,15 +238,10 @@
 
         <div class="form-row">
             <div class="form-group col-6">
-                <input type="hidden" id="pair_id_label" class="form-control" name="pair_id" autocomplete="off" value={{
-                    $student->pair_id }}>
+                <input type="hidden" class="form-control" name="pair_id" value={{ $pair_student->id }}>
                 <label for="pair_name_label" class="col-form-label">ペアの名前</label>
-                @if ($student->pair_id != -1)
                 <input type="text" id="pair_name_label" class="form-control" name="pair_name" value={{
                     $pair_student->firstname }}{{ $pair_student->lastname }} disabled>
-                @else
-                <input type="text" id="pair_name_label" class="form-control" name="pair_name" value="なし" disabled>
-                @endif
             </div>
         </div>
 

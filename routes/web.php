@@ -43,6 +43,18 @@ Route::get('/students/detail/{student}', 'App\Http\Controllers\UsController@stud
 // 生徒の更新画面
 Route::get('/students/edit/{student}', 'App\Http\Controllers\UsController@studentEdit');
 
+// 生徒のペア生徒の検索画面
+Route::post('/pairstudent/searchScreen', 'App\Http\Controllers\UsController@pairStudentSearchScreen');
+
+// 生徒のペア生徒の検索処理
+Route::post('/pairstudent/search', 'App\Http\Controllers\UsController@pairStudentSearch');
+
+// 生徒のペア生徒の検索処理
+Route::post('/pairstudent/edit', 'App\Http\Controllers\UsController@pairStudentEdit');
+
+// ペア登録の削除
+Route::post('/pairstudent/remove', 'App\Http\Controllers\UsController@pairStudentRemove');
+
 // 生徒の更新処理
 Route::post('/students/update', 'App\Http\Controllers\UsController@studentUpdate');
 
