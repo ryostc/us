@@ -93,3 +93,6 @@ Route::POST('/schedules/studentDetail1', 'App\Http\Controllers\UsController@sche
 
 // 生徒ごとのスケジュールの詳細表示(更新からの遷移)
 Route::POST('/schedules/studentDetail2', 'App\Http\Controllers\UsController@scheduleStudetDetail2');
+
+// 指定した月の未予約生徒の表示
+Route::GET('/schedules/unreservedStudent', 'App\Http\Controllers\UsController@unreservedStudent');

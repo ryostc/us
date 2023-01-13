@@ -873,4 +873,41 @@ class UsController extends Controller
         ];
         return view('us.studentScheduleDetailShow2', $param);
     }
+
+    /**
+     * 指定した月の未予約生徒の表示
+     */
+    public function unreservedStudent(Request $request)
+    {
+        $yearMonth = $request->yearMonth;
+        $instructors = Instructor::orderBy('created_at', 'asc')->get();
+
+        // 送られた年と月に対応するスケジュールをすべて取得
+        $schedules = DB::table('schedules')
+            ->where('date', 'like', '%' . $yearMonth . '%')
+            ->get();
+
+        // studentsテーブルのステータスカラムが'入校'の生徒をすべて取得
+        $students = DB::table('students')->where('status', '入校')->get();
+
+        // 取得したスケジュールに含まれている生徒のIDを配列に格納
+        $ids = [];
+        foreach ($schedules as $schedule) {
+            $ids[] = $schedule->student_id;
+        }
+        // 重複している生徒IDを削除
+        $ids = array_unique($ids);
+
+        // 引数で指定した生徒IDに一致しない生徒を取得
+        $students = $students->whereNotIn('id', $ids);
+
+        $param = [
+            'students' => $students,
+            'schedules' => $schedules,
+            'instructors' => $instructors,
+            'yearMonth' => $yearMonth,
+            'beforeUrl' => $request->url
+        ];
+        return view('us.unreservedStudent', $param);
+    }
 }

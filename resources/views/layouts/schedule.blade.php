@@ -42,7 +42,7 @@
                         </table>
                     </div>
 
-                    <div class="calender">
+                    <div class="calender mb-3">
                         <div class="row mb-3">
                             <h4 class="mr-2">
                                 <a href="?ym={{ $prev }}">&lt;&lt;</a>
@@ -65,6 +65,31 @@
                             {!! $week !!}
                             @endforeach
                         </table>
+                    </div>
+
+                    <div class="unreservedStudent">
+                        <form action="/schedules/unreservedStudent" method="GET">
+                            @csrf
+                            <table class="table-sm border">
+                                <tr>
+                                    <th class="text-center">未予約生徒検索</th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        @php
+                                        // 現在のページのURLを取得する
+                                        $protocol = empty($_SERVER["HTTPS"]) ? "http://" : "https://";
+                                        $url = $protocol . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
+                                        @endphp
+                                        <input type="month" name="yearMonth">
+                                        <input type="hidden" name="url" value={{ $url }}>
+                                        <button type="submit" class="btn btn-info">
+                                            検索
+                                        </button>
+                                    </td>
+                                </tr>
+                            </table>
+                        </form>
                     </div>
                 </div>
                 <div class="schedules col-8">
