@@ -4,7 +4,7 @@
 
 @section('content')
 @include('common.errors')
-<form action="/schedules/register/searchResult" method="POST">
+<form action={{ url("/schedules/register/searchResult") }} method="POST">
     @csrf
     <div class="text-right">
         <div class="btn-group">
@@ -15,13 +15,13 @@
 
             {{-- スケジュール登録画面へ戻る(生徒情報なしのページ) --}}
             @php
-            $url = "http://localhost/schedules/register/";
+            $url = "/schedules/register/";
             $url .= $date;
             $url .= "/";
             $url .= $time;
 
             @endphp
-            <a href={{ $url }} class="btn btn-info rounded">戻る</a>
+            <a href={{ url($url) }} class="btn btn-info rounded">戻る</a>
         </div>
     </div>
 

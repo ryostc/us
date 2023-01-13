@@ -5,7 +5,7 @@
 @section('content')
 <div class="text-right">
     <!-- 生徒検索へ戻る -->
-    <form action="/pairstudent/searchScreen" method="POST">
+    <form action={{ url("/pairstudent/searchScreen") }} method="POST">
         @csrf
         <input type="hidden" name="id" value={{ $student_id }}>
         <button type="submit" class="btn btn-info rounded mb-2">
@@ -24,14 +24,14 @@
     <!-- テーブル本体 -->
     <tbody>
         @forelse ($students as $student)
-        <form action="{{ url('/pairstudent/edit') }}" method="POST">
+        <form action={{ url('/pairstudent/edit') }} method="POST">
             @csrf
             <tr>
                 <!-- 生徒の名前 -->
                 <td>
                     <input type="hidden" name="id" value={{ $student_id }}>
                     <input type="hidden" name="pairStudent_id" value={{ $student->id }}>
-                    <button class="btn btn-link" formaction="{{ url('/pairstudent/edit') }}">
+                    <button class="btn btn-link" formaction={{ url('/pairstudent/edit') }}>
                         {{$student->firstname }}{{ $student->lastname }}
                     </button>
                 </td>

@@ -19,7 +19,7 @@
             <td>フリガナ</td>
             <td>{{ $student->firstname_ruby }}{{ $student->lastname_ruby }}</td>
             <td>
-                <button formaction="/schedules/studentDetail1" type="submit" class="btn btn-info">
+                <button formaction={{ url("/schedules/studentDetail1") }} type="submit" class="btn btn-info">
                     詳細へ
                 </button>
             </td>
@@ -94,18 +94,18 @@
 
     <div class="btn-group mt-2 col-3 offset-5">
         <!-- スケジュール: 新規登録ボタン -->
-        <button formaction="/schedules/register/create" type="submit" class="btn btn-primary rounded mr-1">
+        <button formaction={{ url("/schedules/register/create") }} type="submit" class="btn btn-primary rounded mr-1">
             登録
         </button>
 
         <!-- スケジュール新規登録画面(生徒情報なし)へ戻る -->
         @php
-        $url = "http://localhost/schedules/register/";
+        $url = "/schedules/register/";
         $url .= $date;
         $url .= "/";
         $url .= $time;
         @endphp
-        <a href={{ $url }} class="btn btn-danger rounded" onClick="delete_alert(event);return false;">
+        <a href={{ url($url) }} class="btn btn-danger rounded" onClick="delete_alert(event);return false;">
             リセット
         </a>
     </div>

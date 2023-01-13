@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="text-right">
-    <a class="btn btn-info rounded" href="/schedules/edit/screen/{{ $nowScheduleId }}">
+    <a class="btn btn-info rounded" href={{ url("/schedules/edit/screen/" .$nowScheduleId) }}>
         更新画面へ戻る
     </a>
 </div>

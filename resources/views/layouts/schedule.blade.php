@@ -68,7 +68,7 @@
                     </div>
 
                     <div class="unreservedStudent">
-                        <form action="/schedules/unreservedStudent" method="GET">
+                        <form action={{ url("/schedules/unreservedStudent") }} method="GET">
                             @csrf
                             <table class="table-sm border">
                                 <tr>

@@ -11,11 +11,11 @@
 
     <div class="form-row">
         <div class="form-group col-6">
-            <button formaction="/pairstudent/searchScreen" type="submit" class="btn btn-info rounded">
+            <button formaction={{ url("/pairstudent/searchScreen") }} type="submit" class="btn btn-info rounded">
                 ペア生徒の検索
             </button>
 
-            <button formaction="/pairstudent/remove" type="submit" class="btn btn-danger rounded"
+            <button formaction={{ url("/pairstudent/remove") }} type="submit" class="btn btn-danger rounded"
                 onClick="delete_alert(event);return false;">
                 ペア登録の削除
             </button>
@@ -359,7 +359,7 @@
     </fieldset>
 
     <div class="col-sm-offset-3 col-sm-6 mb-2">
-        <button formaction="/students/update" type="submit" class="btn btn-primary mr-1">
+        <button formaction={{ url("/students/update") }} type="submit" class="btn btn-primary mr-1">
             再登録
         </button>
     </div>

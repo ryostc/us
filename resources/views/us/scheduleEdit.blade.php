@@ -20,7 +20,7 @@
             <td>フリガナ</td>
             <td>{{ $student->firstname_ruby }}{{ $student->lastname_ruby }}</td>
             <td>
-                <button formaction="/schedules/studentDetail2" type="submit" class="btn btn-info">
+                <button formaction={{ url("/schedules/studentDetail2") }} type="submit" class="btn btn-info">
                     詳細へ
                 </button>
             </td>
@@ -95,12 +95,12 @@
 
     <div class="btn-group mt-2 col-4 offset-4">
         <!-- スケジュール: 新規登録ボタン -->
-        <button formaction="/schedules/edit" type="submit" class="btn btn-primary rounded mr-1">
+        <button formaction={{ url("/schedules/edit") }} type="submit" class="btn btn-primary rounded mr-1">
             更新
         </button>
 
         <!-- インストラクター: 削除ボタン -->
-        <button formaction="/schedules/remove" type="submit" class="btn btn-danger rounded mr-1"
+        <button formaction={{ url("/schedules/remove") }} type="submit" class="btn btn-danger rounded mr-1"
             onClick="delete_alert(event);return false;">
             削除
         </button>
@@ -112,7 +112,7 @@
         $url .= "/";
         $url .= $j;
         @endphp
-        <a href={{ $url }} class="btn btn-info rounded">
+        <a href={{ url($url) }} class="btn btn-info rounded">
             戻る
         </a>
     </div>

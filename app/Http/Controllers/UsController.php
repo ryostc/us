@@ -205,7 +205,11 @@ class UsController extends Controller
             } else {
                 $week .= '<td>';
             }
-            $week .= '<a href=http://localhost/schedules/basic/' . $ym . '/' . $day . '>' . $day . '</a></td>';
+            $url = '/schedules/basic/';
+            $url .= $ym;
+            $url .= '/';
+            $url .= $day;
+            $week .= '<a href=' . url($url) . '>' . $day . '</a></td>';
 
             // 週終わり、または、月終わりの場合
             if ($youbi % 7 == 6 || $day == $day_count) {
@@ -250,7 +254,7 @@ class UsController extends Controller
 
         // インストラクターのバリデーションエラー処理
         if ($validator->fails()) {
-            return redirect('/instructors/register')
+            return redirect(url('/instructors/register'))
                 ->withInput()
                 ->withErrors($validator);
         }
@@ -263,7 +267,7 @@ class UsController extends Controller
         $instructors->lastname_ruby = $request->lastname_ruby;
         $instructors->enrollment_date = $request->enrollment_date;
         $instructors->save();
-        return redirect('/instructors/register');
+        return redirect(url('/instructors/register'));
     }
 
     /**
@@ -315,7 +319,7 @@ class UsController extends Controller
 
         // インストラクターのバリデーションエラー処理
         if ($validator->fails()) {
-            return redirect('/instructors/edit/' . $request->id)
+            return redirect(url('/instructors/edit/' . $request->id))
                 ->withInput()
                 ->withErrors($validator);
         }
@@ -328,7 +332,7 @@ class UsController extends Controller
         $instructors->lastname_ruby = $request->lastname_ruby;
         $instructors->enrollment_date = $request->enrollment_date;
         $instructors->save();
-        return redirect('/instructors/show');
+        return redirect(url('/instructors/show'));
     }
 
     /**
@@ -340,7 +344,7 @@ class UsController extends Controller
     public function instructorRemove(Request $request)
     {
         DB::table('instructors')->where('id', $request->id)->delete();
-        return redirect('/instructors/show');
+        return redirect(url('/instructors/show'));
     }
 
     /**
@@ -370,7 +374,7 @@ class UsController extends Controller
 
         // 生徒のバリデーションエラー処理
         if ($validator->fails()) {
-            return redirect('/students/register')
+            return redirect(url('/students/register'))
                 ->withInput()
                 ->withErrors($validator);
         }
@@ -405,7 +409,7 @@ class UsController extends Controller
         $students->expel_date = $request->expel_date;
         $students->trial_lesson_date = $request->trial_lesson_date;
         $students->save();
-        return redirect('/students/register');
+        return redirect(url('/students/register'));
     }
 
     /**
@@ -539,7 +543,7 @@ class UsController extends Controller
         // リダイレクトするURL
         $url = '/students/control';
 
-        return redirect($url);
+        return redirect(url($url));
     }
 
     /**
@@ -560,7 +564,7 @@ class UsController extends Controller
 
         // 生徒のバリデーションエラー処理
         if ($validator->fails()) {
-            return redirect('/students/edit/' . $request->id)
+            return redirect(url('/students/edit/' . $request->id))
                 ->withInput()
                 ->withErrors($validator);
         }
@@ -602,7 +606,7 @@ class UsController extends Controller
         $students->expel_date = $request->expel_date;
         $students->trial_lesson_date = $request->trial_lesson_date;
         $students->save();
-        return redirect('/students/detail/' . $students->id);
+        return redirect(url('/students/detail/' . $students->id));
     }
 
     /**
@@ -614,7 +618,7 @@ class UsController extends Controller
     public function studentRemove(Request $request)
     {
         DB::table('students')->where('id', $request->id)->delete();
-        return redirect('/students/show');
+        return redirect(url('/students/show'));
     }
 
     /**
@@ -886,7 +890,7 @@ class UsController extends Controller
             $pairschedule->lesson_type = $pairStudent->lesson_type;
             $pairschedule->save();
         }
-        return redirect($url);
+        return redirect(url($url));
     }
 
     /**
@@ -972,7 +976,7 @@ class UsController extends Controller
         $schedule->time = $request->time;
         $schedule->memo = $request->memo;
         $schedule->save();
-        return redirect($url);
+        return redirect(url($url));
     }
 
     /**
@@ -1012,7 +1016,7 @@ class UsController extends Controller
         }
 
         DB::table('schedules')->where('id', $schedule->id)->delete();
-        return redirect($url);
+        return redirect(url($url));
     }
 
     /**

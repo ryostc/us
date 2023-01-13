@@ -5,7 +5,7 @@
 @section('content')
 <div class="text-right">
     <!-- 生徒検索へ戻る -->
-    <a class="btn btn-info rounded mb-2" href="{{ url('/students/search') }}">
+    <a class="btn btn-info rounded mb-2" href={{ url('/students/search') }}>
         生徒検索へ
     </a>
 </div>
@@ -23,7 +23,7 @@
         <tr>
             <!-- 生徒の名前 -->
             <td>
-                <a class="btn btn-link" href="{{ url('/students/detail/' .$student->id) }}">
+                <a class="btn btn-link" href={{ url('/students/detail/' .$student->id) }}>
                     {{$student->firstname }}{{ $student->lastname }}
                 </a>
             </td>

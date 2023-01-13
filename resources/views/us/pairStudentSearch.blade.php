@@ -10,12 +10,12 @@
     <div class="text-right">
         <div class="btn-group">
             {{-- 生徒の検索ボタン --}}
-            <button formaction="/pairstudent/search" formmethod="POST" type="submit"
+            <button formaction={{ url("/pairstudent/search") }} formmethod="POST" type="submit"
                 class="btn btn-primary rounded mr-2">
                 検索
             </button>
 
-            <button type="submit" formaction="{{ url('students/edit/'.$student_id) }}" formmethod="GET"
+            <button type="submit" formaction={{ url('students/edit/'.$student_id) }} formmethod="GET"
                 class="btn btn-info rounded mr-1">
                 戻る
             </button>

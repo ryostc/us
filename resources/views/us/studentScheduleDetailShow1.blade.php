@@ -4,7 +4,15 @@
 
 @section('content')
 <div class="text-right">
-    <a class="btn btn-info rounded" href="/schedules/register/createScreen/{{ $student->id }}/{{ $date }}/{{ $time }}">
+    @php
+        $url = "/schedules/register/createScreen/";
+        $url .= $student->id;
+        $url .= "/";
+        $url .= $date;
+        $url .= "/";
+        $url .= $time
+    @endphp
+    <a class="btn btn-info rounded" href={{ url($url) }}>
         新規登録画面へ戻る
     </a>
 </div>

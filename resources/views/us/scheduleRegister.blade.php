@@ -3,7 +3,7 @@
 @section('title', 'スケジュール新規登録')
 
 @section('content')
-<form action="/schedules/register/search" method="POST">
+<form action={{ url("/schedules/register/search") }} method="POST">
     @csrf
     <table class="table-sm border">
         <tr>
@@ -81,7 +81,7 @@
         $url .= "/";
         $url .= $j;
         @endphp
-        <a href={{ $url }} class="btn btn-info rounded">
+        <a href={{ url($url) }} class="btn btn-info rounded">
             戻る
         </a>
     </div>

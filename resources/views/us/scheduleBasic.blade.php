@@ -16,7 +16,7 @@
     @foreach ($lesson_times as $lesson_time)
     @php
     $count = 0;
-    $url = "http://localhost/schedules/register/";
+    $url = "/schedules/register/";
     $url .= $date;
     $url .= "/";
     $url .= $lesson_time;
@@ -25,15 +25,17 @@
     @php
     $student = DB::table('students')->where('id', $schedule->student_id)->first();
     $instructor = DB::table('instructors')->where('id', $schedule->instructor_id)->first();
+    $editUrl = "/schedules/edit/screen/";
+    $editUrl .= $schedule->id;
     @endphp
     @if ($schedule->time == $lesson_time && $count == 0)
     <tr>
         @php
         $count++;
         @endphp
-        <td><a href={{ $url }}>{{ $lesson_time }}</a></td>
+        <td><a href={{ url($url) }}>{{ $lesson_time }}</a></td>
         <td>
-            <a href="/schedules/edit/screen/{{ $schedule->id }}">
+            <a href={{ url($editUrl) }}>
                 {{$student->firstname }}{{ $student->lastname }}
             </a>
         </td>
@@ -53,7 +55,7 @@
     <tr>
         <td></td>
         <td>
-            <a href="/schedules/edit/screen/{{ $schedule->id }}">
+            <a href={{ url($editUrl) }}>
                 {{$student->firstname }}{{ $student->lastname }}
             </a>
         </td>
@@ -73,7 +75,7 @@
     @endforeach
     @if ($count == 0)
     <tr>
-        <td><a href={{ $url }}>{{ $lesson_time }}</a></td>
+        <td><a href={{ url($url)}}>{{ $lesson_time }}</a></td>
     </tr>
     @endif
     @endforeach

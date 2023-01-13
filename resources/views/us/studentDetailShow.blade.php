@@ -6,7 +6,7 @@
 <div class="text-right">
     <div class="btn-group">
         <!-- 生徒: 更新ボタン -->
-        <form action="{{ url('students/edit/'.$student->id) }}" method="GET">
+        <form action={{ url('students/edit/'.$student->id) }} method="GET">
             @csrf
             <button type="submit" class="btn btn-primary mr-1">
                 編集
@@ -14,7 +14,7 @@
         </form>
 
         <!-- インストラクター: 削除ボタン -->
-        <form action="{{ url('student/remove') }}" method="POST">
+        <form action={{ url('student/remove') }} method="POST">
             @csrf
             {{-- id値を送信 --}}
             <input type="hidden" name="id" value={{ $student->id }}>
@@ -25,7 +25,7 @@
         </form>
 
         <!-- 生徒検索へ戻る -->
-        <a class="btn btn-info rounded mb-2" href="{{ url('/students/search') }}">
+        <a class="btn btn-info rounded mb-2" href={{ url('/students/search') }}>
             生徒検索へ
         </a>
     </div>

@@ -5,7 +5,7 @@
 @section('content')
 <div class="text-right">
     <!-- インストラクターの新規登録画面へ遷移 -->
-    <a href="http://localhost/instructors/register" class="col-2 btn btn-success rounded m-1 mb-2">新規登録</a>
+    <a href={{ url('/instructors/register') }} class="col-2 btn btn-success rounded m-1 mb-2">新規登録</a>
 </div>
 @if (count($instructors) > 0)
 <table class="table">
@@ -20,7 +20,7 @@
         <tr>
             <!-- インストラクターの名前 -->
             <td>
-                <a class="btn btn-link" href="{{ url('/instructors/detail/' .$instructor->id) }}">
+                <a class="btn btn-link" href={{ url('/instructors/detail/' .$instructor->id) }}>
                     {{$instructor->firstname }}{{ $instructor->lastname }}
                 </a>
             </td>

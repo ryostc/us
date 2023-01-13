@@ -4,7 +4,7 @@
 
 @section('content')
 @include('common.errors')
-<form action="/students/search" method="POST">
+<form action={{ url("/students/search") }} method="POST">
     @csrf
     <div class="text-right">
         <div class="btn-group">
@@ -14,7 +14,7 @@
             </button>
 
             {{-- 全生徒の表示 --}}
-            <a class="btn btn-secondary rounded" href="{{ url('/students/show') }}">
+            <a class="btn btn-secondary rounded" href={{ url('/students/show') }}>
                 生徒一覧の表示
             </a>
         </div>

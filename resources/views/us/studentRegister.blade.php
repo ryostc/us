@@ -4,7 +4,7 @@
 
 @section('content')
 @include('common.errors')
-<form action="/students/register" method="POST">
+<form action={{ url("/students/register") }} method="POST">
     @csrf
     <fieldset>
         <legend>個人情報</legend>

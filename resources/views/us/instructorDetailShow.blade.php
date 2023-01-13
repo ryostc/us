@@ -6,7 +6,7 @@
 <div class="text-right">
     <div class="btn-group">
         <!-- インストラクター: 更新ボタン -->
-        <form action="{{ url('instructors/edit/'.$instructor->id) }}" method="GET">
+        <form action={{ url('instructors/edit/'.$instructor->id) }} method="GET">
             @csrf
             <button type="submit" class="btn btn-primary mr-1">
                 編集
@@ -14,7 +14,7 @@
         </form>
 
         <!-- インストラクター: 削除ボタン -->
-        <form action="{{ url('instructor/remove') }}" method="POST">
+        <form action={{ url('instructor/remove') }} method="POST">
             @csrf
             {{-- id値を送信 --}}
             <input type="hidden" name="id" value={{ $instructor->id }}>

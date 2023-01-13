@@ -5,7 +5,7 @@
 @section('content')
 <div class="text-right">
     <!-- 生徒検索へ戻る -->
-    <form action="/schedules/register/search" method="POST">
+    <form action={{ url("/schedules/register/search") }} method="POST">
         @csrf
         <input type="hidden" name="date" value={{ $date }}>
         <input type="hidden" name="time" value={{ $time }}>
@@ -28,7 +28,15 @@
         <tr>
             <!-- 生徒の名前 -->
             <td>
-                <a href="/schedules/register/createScreen/{{ $student->id }}/{{ $date }}/{{ $time }}">
+                @php
+                $url = "/schedules/register/createScreen/";
+                $url .= $student->id;
+                $url .= "/";
+                $url .= $date;
+                $url .= "/";
+                $url .= $time;
+                @endphp
+                <a href={{ url($url) }}>
                     {{$student->firstname }}{{ $student->lastname }}
                 </a>
             </td>

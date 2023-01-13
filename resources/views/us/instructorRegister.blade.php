@@ -4,7 +4,7 @@
 
 @section('content')
 @include('common.errors')
-<form action="/instructors/register" method="POST">
+<form action={{ url('/instructors/register') }} method="POST">
     @csrf
     <div class="form-row">
         <div class="form-group col-6">
