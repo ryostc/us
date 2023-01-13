@@ -732,7 +732,6 @@ class UsController extends Controller
      * スケジュール新規登録画面の表示(生徒情報を入れた後)
      */
     public function scheduleCreateScreen($student_id, $date, $time)
-
     {
         $student = Student::find($student_id);
         $instructors = Instructor::orderBy('created_at', 'asc')->get();
@@ -783,6 +782,18 @@ class UsController extends Controller
         $schedule->lesson_type = $student->lesson_type;
         $schedule->memo = $request->memo;
         $schedule->save();
+
+        // 生徒のペアが設定されていた場合の処理
+        if ($student->pair_id != -1) {
+            $pairStudent = Student::find($student->pair_id);
+            $pairschedule = new Schedule;
+            $pairschedule->student_id = $pairStudent->id;
+            $pairschedule->instructor_id = $pairStudent->instructor_id;
+            $pairschedule->date = $request->date;
+            $pairschedule->time = $request->time;
+            $pairschedule->lesson_type = $pairStudent->lesson_type;
+            $pairschedule->save();
+        }
         return redirect($url);
     }
 
@@ -841,8 +852,29 @@ class UsController extends Controller
         $url .= "/";
         $url .= $j;
 
-        // スケジュールの登録処理
         $schedule = Schedule::find($request->schedule_id);
+
+        // 生徒のペアが設定されていた場合の処理
+        $student = Student::find($schedule->student_id);
+
+        if ($student->pair_id != -1) {
+            $pairStudent = Student::find($student->pair_id);
+
+            // ペアの生徒のスケジュールを検索
+            $pairStudentSchedule = DB::table('schedules')
+                ->where('student_id', $pairStudent->id)
+                ->where('date', $schedule->date)
+                ->where('time', $schedule->time)
+                ->first();
+
+            $pairschedule = Schedule::find($pairStudentSchedule->id);
+            $pairschedule->instructor_id = $request->instructor_id;
+            $pairschedule->date = $request->date;
+            $pairschedule->time = $request->time;
+            $pairschedule->save();
+        }
+
+        // スケジュールの登録処理
         $schedule->instructor_id = $request->instructor_id;
         $schedule->date = $request->date;
         $schedule->time = $request->time;
@@ -868,7 +900,26 @@ class UsController extends Controller
         $url .= $ym;
         $url .= "/";
         $url .= $j;
-        DB::table('schedules')->where('id', $request->id)->delete();
+
+        $schedule = Schedule::find($request->schedule_id);
+        // 生徒のペアが設定されていた場合の処理
+        $student = Student::find($schedule->student_id);
+
+        if ($student->pair_id != -1) {
+            $pairStudent = Student::find($student->pair_id);
+
+            // ペアの生徒のスケジュールを検索
+            $pairStudentSchedule = DB::table('schedules')
+                ->where('student_id', $pairStudent->id)
+                ->where('date', $schedule->date)
+                ->where('time', $schedule->time)
+                ->first();
+
+            $pairschedule = Schedule::find($pairStudentSchedule->id);
+            DB::table('schedules')->where('id', $pairschedule->id)->delete();
+        }
+
+        DB::table('schedules')->where('id', $schedule->id)->delete();
         return redirect($url);
     }
 
