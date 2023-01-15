@@ -481,17 +481,30 @@ class UsController extends Controller
      */
     public function pairStudentSearch(Request $request)
     {
-        $students = DB::table('students')
-            ->where('firstname', 'like', '%' . $request->firstname . '%')
-            ->where('lastname', 'like', '%' . $request->lastname . '%')
-            ->where('firstname_ruby', 'like', '%' . $request->firstname_ruby . '%')
-            ->where('lastname_ruby', 'like', '%' . $request->lastname_ruby . '%')
-            ->where('phonenumber', 'like', '%' . $request->phonenumber . '%')
-            ->where('email', 'like', '%' . $request->email . '%')
-            ->where('status', 'like', '%' . $request->status . '%')
-            ->where('lesson_type', 'like', '%' . $request->lesson_type . '%')
-            ->where('unpaid', 'like', '%' . $request->unpaid . '%')
-            ->get();
+        if ($request->unpaid == "2") {
+            $students = DB::table('students')
+                ->where('firstname', 'like', '%' . $request->firstname . '%')
+                ->where('lastname', 'like', '%' . $request->lastname . '%')
+                ->where('firstname_ruby', 'like', '%' . $request->firstname_ruby . '%')
+                ->where('lastname_ruby', 'like', '%' . $request->lastname_ruby . '%')
+                ->where('phonenumber', 'like', '%' . $request->phonenumber . '%')
+                ->where('email', 'like', '%' . $request->email . '%')
+                ->where('status', 'like', '%' . $request->status . '%')
+                ->where('lesson_type', 'like', '%' . $request->lesson_type . '%')
+                ->get();
+        } else {
+            $students = DB::table('students')
+                ->where('firstname', 'like', '%' . $request->firstname . '%')
+                ->where('lastname', 'like', '%' . $request->lastname . '%')
+                ->where('firstname_ruby', 'like', '%' . $request->firstname_ruby . '%')
+                ->where('lastname_ruby', 'like', '%' . $request->lastname_ruby . '%')
+                ->where('phonenumber', 'like', '%' . $request->phonenumber . '%')
+                ->where('email', 'like', '%' . $request->email . '%')
+                ->where('status', 'like', '%' . $request->status . '%')
+                ->where('lesson_type', 'like', '%' . $request->lesson_type . '%')
+                ->where('unpaid', 'like', '%' . $request->unpaid . '%')
+                ->get();
+        }
         $instructors = Instructor::orderBy('created_at', 'asc')->get();
         $param = [
             'students' => $students,
@@ -650,17 +663,30 @@ class UsController extends Controller
      */
     public function studentSearch(Request $request)
     {
-        $students = DB::table('students')
-            ->where('firstname', 'like', '%' . $request->firstname . '%')
-            ->where('lastname', 'like', '%' . $request->lastname . '%')
-            ->where('firstname_ruby', 'like', '%' . $request->firstname_ruby . '%')
-            ->where('lastname_ruby', 'like', '%' . $request->lastname_ruby . '%')
-            ->where('phonenumber', 'like', '%' . $request->phonenumber . '%')
-            ->where('email', 'like', '%' . $request->email . '%')
-            ->where('status', 'like', '%' . $request->status . '%')
-            ->where('lesson_type', 'like', '%' . $request->lesson_type . '%')
-            ->where('unpaid', 'like', '%' . $request->unpaid . '%')
-            ->get();
+        if ($request->unpaid == "2") {
+            $students = DB::table('students')
+                ->where('firstname', 'like', '%' . $request->firstname . '%')
+                ->where('lastname', 'like', '%' . $request->lastname . '%')
+                ->where('firstname_ruby', 'like', '%' . $request->firstname_ruby . '%')
+                ->where('lastname_ruby', 'like', '%' . $request->lastname_ruby . '%')
+                ->where('phonenumber', 'like', '%' . $request->phonenumber . '%')
+                ->where('email', 'like', '%' . $request->email . '%')
+                ->where('status', 'like', '%' . $request->status . '%')
+                ->where('lesson_type', 'like', '%' . $request->lesson_type . '%')
+                ->get();
+        } else {
+            $students = DB::table('students')
+                ->where('firstname', 'like', '%' . $request->firstname . '%')
+                ->where('lastname', 'like', '%' . $request->lastname . '%')
+                ->where('firstname_ruby', 'like', '%' . $request->firstname_ruby . '%')
+                ->where('lastname_ruby', 'like', '%' . $request->lastname_ruby . '%')
+                ->where('phonenumber', 'like', '%' . $request->phonenumber . '%')
+                ->where('email', 'like', '%' . $request->email . '%')
+                ->where('status', 'like', '%' . $request->status . '%')
+                ->where('lesson_type', 'like', '%' . $request->lesson_type . '%')
+                ->where('unpaid', 'like', '%' . $request->unpaid . '%')
+                ->get();
+        }
         $instructors = Instructor::orderBy('created_at', 'asc')->get();
         $param = ['students' => $students, 'instructors' => $instructors];
         return view('us.studentSearchResult', $param);
