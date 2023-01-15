@@ -115,7 +115,7 @@
                 @endif
             </tr>
             @empty
-            <td>検索の対象がありませんでした</td>
+            <td colspan="4">検索の対象がありませんでした</td>
             @endforelse
         </table>
     </div>
