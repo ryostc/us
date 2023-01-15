@@ -1025,7 +1025,9 @@ class UsController extends Controller
                 ->first();
 
             $pairschedule = Schedule::find($pairStudentSchedule->id);
-            DB::table('schedules')->where('id', $pairschedule->id)->delete();
+            if ($pairschedule != null) {
+                DB::table('schedules')->where('id', $pairschedule->id)->delete();
+            }
         }
 
         DB::table('schedules')->where('id', $schedule->id)->delete();
