@@ -33,43 +33,62 @@
         @php
         $count++;
         @endphp
+
         <td><a href={{ url($url) }}>{{ $lesson_time }}</a></td>
+
         <td>
             <a href={{ url($editUrl) }}>
                 {{$student->firstname }}{{ $student->lastname }}
             </a>
         </td>
+
+        @if ($instructor != null)
         <td>{{ $instructor->firstname }}{{ $instructor->lastname }}</td>
+        @else
+        <td>インストラクターを再登録して下さい</td>
+        @endif
+
         @if ($student->unpaid == "0")
         <td><span class="checkmark"></span></td>
         @elseif($student->unpaid == "1")
         <td><span class="checkedmark"></span></td>
         @endif
+
         @if ($schedule->memo != null)
         <td>{{ $schedule->memo }}</td>
         @else
         <td></td>
         @endif
+
     </tr>
     @elseif($schedule->time == $lesson_time && $count != 0)
     <tr>
         <td></td>
+
         <td>
             <a href={{ url($editUrl) }}>
                 {{$student->firstname }}{{ $student->lastname }}
             </a>
         </td>
+
+        @if ($instructor != null)
         <td>{{ $instructor->firstname }}{{ $instructor->lastname }}</td>
+        @else
+        <td>インストラクターを再登録して下さい</td>
+        @endif
+
         @if ($student->unpaid == "0")
         <td><span class="checkmark"></span></td>
         @elseif($student->unpaid == "1")
         <td><span class="checkedmark"></span></td>
         @endif
+
         @if ($schedule->memo != null)
         <td>{{ $schedule->memo }}</td>
         @else
         <td></td>
         @endif
+
     </tr>
     @endif
     @endforeach

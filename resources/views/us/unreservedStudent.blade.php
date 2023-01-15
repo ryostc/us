@@ -37,13 +37,25 @@
                     {{ $student->lesson_type }}
                 </td>
 
+                @php
+                $count = 0;
+                @endphp
+                @foreach ($instructors as $instructor)
+                @if ($student->instructor_id == $instructor->id)
+                @php
+                $count++;
+                @endphp
                 <td>
-                    @foreach ($instructors as $instructor)
-                    @if ($student->instructor_id == $instructor->id)
                     {{ $instructor->firstname }}{{ $instructor->lastname }}
-                    @endif
-                    @endforeach
                 </td>
+                @endif
+                @endforeach
+                @if ($count == 0)
+                <td>
+                    インストラクターを再登録して下さい
+                </td>
+                @endif
+
             </tr>
             @empty
             <td colspan="3">未予約生徒は見つかりませんでした</td>

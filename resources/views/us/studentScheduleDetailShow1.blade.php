@@ -5,12 +5,12 @@
 @section('content')
 <div class="text-right">
     @php
-        $url = "/schedules/register/createScreen/";
-        $url .= $student->id;
-        $url .= "/";
-        $url .= $date;
-        $url .= "/";
-        $url .= $time
+    $url = "/schedules/register/createScreen/";
+    $url .= $student->id;
+    $url .= "/";
+    $url .= $date;
+    $url .= "/";
+    $url .= $time
     @endphp
     <a class="btn btn-info rounded" href={{ url($url) }}>
         新規登録画面へ戻る
@@ -23,7 +23,12 @@
         <table class="table table-bordered">
             <tr>
                 <th>担当インストラクター</th>
+                @if ($personalInstructor != null)
                 <td>{{ $personalInstructor->firstname }}{{ $personalInstructor->lastname }}</td>
+                @else
+                <td>インストラクターを再登録して下さい</td>
+                @endif
+
                 <th>ステータス</th>
                 <td>{{ $student->status }}</td>
             </tr>
@@ -90,13 +95,24 @@
                     {{ $schedule->lesson_type }}
                 </td>
 
+                @php
+                $count = 0;
+                @endphp
                 @foreach ($instructors as $instructor)
                 @if ($schedule->instructor_id == $instructor->id)
+                @php
+                $count++;
+                @endphp
                 <td>
                     {{ $instructor->firstname }}{{ $instructor->lastname }}
                 </td>
                 @endif
                 @endforeach
+                @if ($count == 0)
+                <td>
+                    インストラクターが見つかりません
+                </td>
+                @endif
             </tr>
             @empty
             <td>検索の対象がありませんでした</td>
