@@ -98,7 +98,11 @@
     <div class="row ml-1">
         <div class="col-6">
             <label for="instructor" class="lead">担当インストラクター</label>
+            @if ($personalInstructor != null)
             <p class='ml-2'>{{$personalInstructor->firstname }}{{ $personalInstructor->lastname }}</p>
+            @else
+            <p class='ml-2'>見つかりませんでした</p>
+            @endif
         </div>
     </div>
 

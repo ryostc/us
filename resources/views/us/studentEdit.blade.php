@@ -15,7 +15,8 @@
                 ペア生徒の検索
             </button>
 
-            <button formaction={{ url("/pairstudent/remove") }} type="submit" class="btn btn-danger rounded" onClick="delete_alert(event);return false;">
+            <button formaction={{ url("/pairstudent/remove") }} type="submit" class="btn btn-danger rounded"
+                onClick="delete_alert(event);return false;">
                 ペア登録の削除
             </button>
         </div>
@@ -171,6 +172,7 @@
         <div class="form-row">
             <div class="form-group col-6">
                 <label for="instructor_id_label" class="col-form-label">担当インストラクター</label>
+                @if ($personalInstructor != null)
                 <select id="instructor_id_label" name="instructor_id" class="form-control">
                     <option value={{$personalInstructor->id }}>{{$personalInstructor->firstname }}{{
                         $personalInstructor->lastname }}</option>
@@ -180,6 +182,13 @@
                     @endif
                     @endforeach
                 </select>
+                @else
+                <select id="instructor_id_label" name="instructor_id" class="form-control">
+                    @foreach ($instructors as $instructor)
+                    <option value={{ $instructor->id }}>{{$instructor->firstname }}{{ $instructor->lastname }}</option>
+                    @endforeach
+                </select>
+                @endif
             </div>
         </div>
 

@@ -24,6 +24,7 @@
     <!-- テーブル本体 -->
     <tbody>
         @forelse ($students as $student)
+        @if ($student_id != $student->id)
         <form action={{ url('/pairstudent/edit') }} method="POST">
             @csrf
             <tr>
@@ -53,6 +54,7 @@
                 @endforeach
             </tr>
         </form>
+        @endif
         @empty
         <td>検索の対象がありませんでした</td>
         @endforelse

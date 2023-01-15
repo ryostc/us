@@ -617,6 +617,19 @@ class UsController extends Controller
      */
     public function studentRemove(Request $request)
     {
+        $schedules = DB::table('schedules')->where('student_id', $request->id)->get();
+        $student = Student::find($request->id);
+        // 生徒本人とペアの生徒がいたらペア生徒も削除する(同時に生徒のスケジュールも削除)
+        if ($student->pair_id != -1) {
+            $pairSchedules = DB::table('schedules')->where('student_id', $student->pair_id)->get();
+            foreach ($pairSchedules as $pairSchedule) {
+                DB::table('schedules')->where('id', $pairSchedule->id)->delete();
+            }
+            DB::table('students')->where('id', $student->pair_id)->delete();
+        }
+        foreach ($schedules as $schedule) {
+            DB::table('schedules')->where('id', $schedule->id)->delete();
+        }
         DB::table('students')->where('id', $request->id)->delete();
         return redirect(url('/students/show'));
     }
